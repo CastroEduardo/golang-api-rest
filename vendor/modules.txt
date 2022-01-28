@@ -1,0 +1,193 @@
+# github.com/360EntSecGroup-Skylar/excelize v1.3.1-0.20180527032555-9e463b461434
+## explicit
+github.com/360EntSecGroup-Skylar/excelize
+# github.com/KyleBanks/depth v1.2.1
+## explicit
+github.com/KyleBanks/depth
+# github.com/PuerkitoBio/purell v1.1.1
+## explicit
+github.com/PuerkitoBio/purell
+# github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578
+## explicit
+github.com/PuerkitoBio/urlesc
+# github.com/agiledragon/gomonkey/v2 v2.3.1
+## explicit; go 1.14
+# github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
+## explicit
+github.com/alecthomas/template
+github.com/alecthomas/template/parse
+# github.com/astaxie/beego v1.9.3-0.20171218111859-f16688817aa4
+## explicit
+github.com/astaxie/beego/validation
+# github.com/boombuler/barcode v1.0.1-0.20180315051053-3c06908149f7
+## explicit
+github.com/boombuler/barcode
+github.com/boombuler/barcode/qr
+github.com/boombuler/barcode/utils
+# github.com/denisenkom/go-mssqldb v0.0.0-20190920000552-128d9f4ae1cd
+## explicit; go 1.11
+# github.com/dgrijalva/jwt-go v3.2.0+incompatible
+## explicit
+github.com/dgrijalva/jwt-go
+# github.com/erikstmartin/go-testdb v0.0.0-20160219214506-8d10e4a1bae5
+## explicit
+# github.com/gin-contrib/sse v0.1.0
+## explicit; go 1.12
+github.com/gin-contrib/sse
+# github.com/gin-gonic/gin v1.4.0
+## explicit; go 1.12
+github.com/gin-gonic/gin
+github.com/gin-gonic/gin/binding
+github.com/gin-gonic/gin/internal/json
+github.com/gin-gonic/gin/render
+# github.com/go-ini/ini v1.32.1-0.20180214101753-32e4be5f41bb
+## explicit
+github.com/go-ini/ini
+# github.com/go-openapi/jsonpointer v0.19.5
+## explicit; go 1.13
+github.com/go-openapi/jsonpointer
+# github.com/go-openapi/jsonreference v0.19.6
+## explicit; go 1.13
+github.com/go-openapi/jsonreference
+# github.com/go-openapi/spec v0.20.4
+## explicit; go 1.13
+github.com/go-openapi/spec
+# github.com/go-openapi/swag v0.19.15
+## explicit; go 1.11
+github.com/go-openapi/swag
+# github.com/go-sql-driver/mysql v1.6.0
+## explicit; go 1.10
+github.com/go-sql-driver/mysql
+# github.com/go-swagger/go-swagger v0.29.0
+## explicit; go 1.17
+# github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
+## explicit
+github.com/golang/freetype
+github.com/golang/freetype/raster
+github.com/golang/freetype/truetype
+# github.com/golang/protobuf v1.5.2
+## explicit; go 1.9
+github.com/golang/protobuf/proto
+# github.com/gomodule/redigo v2.0.1-0.20180401191855-9352ab68be13+incompatible
+## explicit
+github.com/gomodule/redigo/internal
+github.com/gomodule/redigo/redis
+# github.com/jinzhu/gorm v0.0.0-20180213101209-6e1387b44c64
+## explicit
+github.com/jinzhu/gorm
+github.com/jinzhu/gorm/dialects/mysql
+# github.com/jinzhu/inflection v0.0.0-20170102125226-1c35d901db3d
+## explicit
+github.com/jinzhu/inflection
+# github.com/jinzhu/now v1.0.1
+## explicit; go 1.12
+# github.com/josharian/intern v1.0.0
+## explicit; go 1.5
+github.com/josharian/intern
+# github.com/json-iterator/go v1.1.6
+## explicit
+github.com/json-iterator/go
+# github.com/lib/pq v1.2.0
+## explicit
+# github.com/mailru/easyjson v0.7.7
+## explicit; go 1.12
+github.com/mailru/easyjson/buffer
+github.com/mailru/easyjson/jlexer
+github.com/mailru/easyjson/jwriter
+# github.com/mattn/go-isatty v0.0.8
+## explicit
+github.com/mattn/go-isatty
+# github.com/mattn/go-sqlite3 v1.11.0
+## explicit
+# github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+## explicit
+github.com/modern-go/concurrent
+# github.com/modern-go/reflect2 v1.0.1
+## explicit
+github.com/modern-go/reflect2
+# github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826
+## explicit
+# github.com/otiai10/copy v1.7.0
+## explicit; go 1.14
+# github.com/swaggo/gin-swagger v1.2.0
+## explicit
+github.com/swaggo/gin-swagger
+github.com/swaggo/gin-swagger/swaggerFiles
+# github.com/swaggo/swag v1.6.7
+## explicit; go 1.13
+github.com/swaggo/swag
+# github.com/tealeg/xlsx v1.0.4-0.20180419195153-f36fa3be8893
+## explicit
+github.com/tealeg/xlsx
+# github.com/ugorji/go/codec v1.1.5-pre
+## explicit
+github.com/ugorji/go/codec
+# github.com/unknwon/com v1.0.1
+## explicit
+github.com/unknwon/com
+# github.com/urfave/cli/v2 v2.3.0
+## explicit; go 1.11
+# golang.org/x/image v0.0.0-20211028202545-6944b10bf410
+## explicit; go 1.12
+golang.org/x/image/font
+golang.org/x/image/math/fixed
+# golang.org/x/net v0.0.0-20220121210141-e204ce36a2ba
+## explicit; go 1.17
+golang.org/x/net/context
+golang.org/x/net/idna
+golang.org/x/net/webdav
+golang.org/x/net/webdav/internal/xml
+# golang.org/x/sys v0.0.0-20220114195835-da31bd327af9
+## explicit; go 1.17
+golang.org/x/sys/execabs
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/unix
+# golang.org/x/text v0.3.7
+## explicit; go 1.17
+golang.org/x/text/secure/bidirule
+golang.org/x/text/transform
+golang.org/x/text/unicode/bidi
+golang.org/x/text/unicode/norm
+golang.org/x/text/width
+# golang.org/x/tools v0.1.9
+## explicit; go 1.17
+golang.org/x/tools/go/ast/astutil
+golang.org/x/tools/go/buildutil
+golang.org/x/tools/go/internal/cgo
+golang.org/x/tools/go/loader
+golang.org/x/tools/internal/typeparams
+# google.golang.org/protobuf v1.27.1
+## explicit; go 1.9
+google.golang.org/protobuf/encoding/prototext
+google.golang.org/protobuf/encoding/protowire
+google.golang.org/protobuf/internal/descfmt
+google.golang.org/protobuf/internal/descopts
+google.golang.org/protobuf/internal/detrand
+google.golang.org/protobuf/internal/encoding/defval
+google.golang.org/protobuf/internal/encoding/messageset
+google.golang.org/protobuf/internal/encoding/tag
+google.golang.org/protobuf/internal/encoding/text
+google.golang.org/protobuf/internal/errors
+google.golang.org/protobuf/internal/filedesc
+google.golang.org/protobuf/internal/filetype
+google.golang.org/protobuf/internal/flags
+google.golang.org/protobuf/internal/genid
+google.golang.org/protobuf/internal/impl
+google.golang.org/protobuf/internal/order
+google.golang.org/protobuf/internal/pragma
+google.golang.org/protobuf/internal/set
+google.golang.org/protobuf/internal/strs
+google.golang.org/protobuf/internal/version
+google.golang.org/protobuf/proto
+google.golang.org/protobuf/reflect/protodesc
+google.golang.org/protobuf/reflect/protoreflect
+google.golang.org/protobuf/reflect/protoregistry
+google.golang.org/protobuf/runtime/protoiface
+google.golang.org/protobuf/runtime/protoimpl
+google.golang.org/protobuf/types/descriptorpb
+# gopkg.in/go-playground/validator.v8 v8.18.2
+## explicit
+gopkg.in/go-playground/validator.v8
+# gopkg.in/yaml.v2 v2.4.0
+## explicit; go 1.15
+gopkg.in/yaml.v2

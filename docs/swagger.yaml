@@ -1,0 +1,107 @@
+definitions:
+  app.Response:
+    properties:
+      code:
+        type: integer
+      data:
+        type: object
+      msg:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: An example of gin
+  license:
+    name: MIT
+    url: https://github.com/CastroEduardo/golang-api-rest/blob/master/LICENSE
+  termsOfService: https://github.com/CastroEduardo/golang-api-rest
+  title: Golang Gin API
+  version: "1.0"
+paths:
+  /api/v1/articles/{id}:
+    get:
+      parameters:
+        - description: ID
+          in: path
+          name: id
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/app.Response"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/app.Response"
+      security:
+        - bearerAuth: []
+      summary: Get a single article
+      tags:
+        - v1 Articles
+  /api/v2/articles/{id}:
+    get:
+      parameters:
+        - description: ID
+          in: path
+          name: id
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/app.Response"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/app.Response"
+      security:
+        - bearerAuth: []
+      summary: Get a single article
+      tags:
+        - v2 Articles
+  /auth:
+    post:
+      operationId: Authentication
+      parameters:
+        - description: userName
+          in: query
+          name: username
+          required: true
+          type: string
+        - description: password
+          in: query
+          name: password
+          required: true
+          type: string
+        - description: remember
+          in: query
+          name: remember
+          required: true
+          type: boolean
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/app.Response"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/app.Response"
+      summary: Get Auth
+      tags:
+        - Auth
+securityDefinitions:
+  bearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

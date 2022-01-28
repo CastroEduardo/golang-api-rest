@@ -1,0 +1,154 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "An example of gin",
+    "title": "Golang Gin API",
+    "termsOfService": "https://github.com/CastroEduardo/golang-api-rest",
+    "contact": {},
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/CastroEduardo/golang-api-rest/blob/master/LICENSE"
+    },
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/v1/articles/{id}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "produces": ["application/json"],
+        "tags": ["v1 Articles"],
+        "summary": "Get a single article",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/articles/{id}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "produces": ["application/json"],
+        "tags": ["v2 Articles"],
+        "summary": "Get a single article",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post": {
+        "produces": ["application/json"],
+        "tags": ["Auth"],
+        "summary": "Get Auth",
+        "operationId": "Authentication",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "userName",
+            "name": "username",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "password",
+            "name": "password",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "boolean",
+            "description": "remember",
+            "name": "remember",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "app.Response": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "object"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}
