@@ -39,7 +39,7 @@ func Setup() error {
 	return nil
 }
 
-// Set a key/value
+// Set a key/value expire is in second this time is in seconds 180 = 1 minut
 func Set(key string, data interface{}, time int) error {
 	conn := RedisConn.Get()
 	defer conn.Close()

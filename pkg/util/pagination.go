@@ -1,10 +1,9 @@
 package util
 
 import (
+	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
 	"github.com/gin-gonic/gin"
 	"github.com/unknwon/com"
-
-	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
 )
 
 // GetPage get page parameters

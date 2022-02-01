@@ -12,6 +12,7 @@ import (
 
 	"github.com/CastroEduardo/golang-api-rest/pkg/app"
 	"github.com/CastroEduardo/golang-api-rest/pkg/e"
+	"github.com/CastroEduardo/golang-api-rest/pkg/gredis"
 	//github.com/CastroEduardo/golang-api-rest/pkg/qrcode"
 	//github.com/CastroEduardo/golang-api-rest/pkg/setting"
 	//github.com/CastroEduardo/golang-api-rest/pkg/util"
@@ -32,6 +33,8 @@ func GetArticle(c *gin.Context) {
 	fmt.Println(id)
 	valid := validation.Validation{}
 	valid.Min(id, 1, "id")
+
+	gredis.Set("test1", "toma", 20)
 
 	// if valid.HasErrors() {
 	// 	app.MarkErrors(valid.Errors)

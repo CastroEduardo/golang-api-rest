@@ -27,7 +27,7 @@ func GenerateToken(username, password string, remember bool) (string, error) {
 		EncodeMD5(password),
 		jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(),
-			Issuer:    "gin-blog",
+			Issuer:    "rest_api_golang",
 		},
 	}
 

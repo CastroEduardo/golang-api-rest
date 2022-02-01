@@ -21,84 +21,116 @@ paths:
   /api/v1/articles/{id}:
     get:
       parameters:
-        - description: ID
-          in: path
-          name: id
-          required: true
-          type: integer
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: "#/definitions/app.Response"
+            $ref: '#/definitions/app.Response'
         "500":
           description: Internal Server Error
           schema:
-            $ref: "#/definitions/app.Response"
+            $ref: '#/definitions/app.Response'
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       summary: Get a single article
       tags:
-        - v1 Articles
+      - v1 Articles
   /api/v2/articles/{id}:
     get:
       parameters:
-        - description: ID
-          in: path
-          name: id
-          required: true
-          type: integer
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: "#/definitions/app.Response"
+            $ref: '#/definitions/app.Response'
         "500":
           description: Internal Server Error
           schema:
-            $ref: "#/definitions/app.Response"
+            $ref: '#/definitions/app.Response'
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       summary: Get a single article
       tags:
-        - v2 Articles
+      - v2 Articles
   /auth:
+    get:
+      operationId: Authentication
+      parameters:
+      - description: username
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: password
+        in: query
+        name: password
+        required: true
+        type: string
+      - description: remember
+        in: query
+        name: remember
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: Get Auth
+      tags:
+      - Auth
     post:
       operationId: Authentication
       parameters:
-        - description: userName
-          in: query
-          name: username
-          required: true
-          type: string
-        - description: password
-          in: query
-          name: password
-          required: true
-          type: string
-        - description: remember
-          in: query
-          name: remember
-          required: true
-          type: boolean
+      - description: username
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: password
+        in: query
+        name: password
+        required: true
+        type: string
+      - description: remember
+        in: query
+        name: remember
+        required: true
+        type: boolean
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: "#/definitions/app.Response"
+            $ref: '#/definitions/app.Response'
         "500":
           description: Internal Server Error
           schema:
-            $ref: "#/definitions/app.Response"
-      summary: Get Auth
+            $ref: '#/definitions/app.Response'
+      summary: Post Auth
       tags:
-        - Auth
+      - Auth
 securityDefinitions:
   bearerAuth:
     in: header
