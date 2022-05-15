@@ -3,6 +3,7 @@ package util
 import (
 	"time"
 
+	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
 	"github.com/dgrijalva/jwt-go"
 )
 
@@ -17,9 +18,9 @@ type Claims struct {
 // GenerateToken generate tokens used for auth
 func GenerateToken(username, password string, remember bool) (string, error) {
 	nowTime := time.Now()
-	expireTime := nowTime.Add(3 * time.Minute)
+	expireTime := nowTime.Add(time.Minute * time.Duration(setting.AppSetting.TimeNotPersistToken))
 	if remember {
-		expireTime = nowTime.Add(3 * time.Hour)
+		expireTime = nowTime.Add(time.Hour * time.Duration(setting.AppSetting.TimePersistToken))
 	}
 
 	claims := Claims{

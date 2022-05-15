@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/astaxie/beego/validation"
 	"github.com/unknwon/com"
 
 	//"github.com/boombuler/barcode/qr"
@@ -18,6 +17,12 @@ import (
 	//github.com/CastroEduardo/golang-api-rest/service/tag_service"
 )
 
+type configApi struct {
+	nameApi string
+}
+
+var client = http.Client{}
+
 // @Summary Get a single article
 // @Produce  json
 // @Tags v2 Articles
@@ -30,8 +35,24 @@ func GetArticle(c *gin.Context) {
 	appG := app.Gin{C: c}
 	id := com.StrTo(c.Param("id")).MustInt()
 	fmt.Println(id)
-	valid := validation.Validation{}
-	valid.Min(id, 1, "id")
+	// valid := validation.Validation{}
+	// valid.Min(id, 1, "id")
+
+	//fmt.Println(upload.GetImageFullPath())
+
+	//c.Static("/upload/images", http.Dir(upload.GetImageFullPath()))
+	//src := upload.GetImageFullPath()
+	// router := gin.Default()
+	// sendURL := router.Static("/upload/images", src+"testimg.png")
+
+	// router := gin.Default()
+	// router.Static("/assets", "./uploads/images/testimg.png")
+	// router.StaticFS("/more_static", http.Dir(src))
+	//router.StaticFile("/favicon.ico", "./resources/favicon.ico")
+
+	//fmt.Println(sendURL)
+	// //sendURL := router.Static("/image", "./uploads/images/testimg.png")
+	// c.Router.Handle("/users/avatar", http.FileServer(http.Dir("/upload/images")
 
 	// if valid.HasErrors() {
 	// 	app.MarkErrors(valid.Errors)
@@ -56,7 +77,8 @@ func GetArticle(c *gin.Context) {
 	// 	return
 	// }
 
-	appG.Response(http.StatusOK, e.SUCCESS, "Enviado")
+	appG.Response(http.StatusOK, e.SUCCESS, "")
+	return
 }
 
 // // @Summary Get multiple articles

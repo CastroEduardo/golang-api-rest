@@ -1,0 +1,24 @@
+{% comment %} //fmt.Println("LongWeekDay : ", time.Now().Format("2006-01-02 15:04:05 Monday"))
+	tn := time.Now().UTC()
+	fmt.Println(tn)
+	year, week := tn.ISOWeek()
+	fmt.Println(year, week)
+
+	ts := time.Now().UTC().Unix()
+	tn = time.Unix(ts, 0)
+	fmt.Println(tn)
+	year, week = tn.ISOWeek()
+	fmt.Println(year, week) {% endcomment %}
+
+
+	timein := time.Now().Local().Add(time.Hour * time.Duration(Hours) +
+                                 time.Minute * time.Duration(Mins) +
+                                 time.Second * time.Duration(Sec))
+
+
+
+#to install swag in golang
+go get -u github.com/swaggo/swag/cmd/swag
+
+
+								 

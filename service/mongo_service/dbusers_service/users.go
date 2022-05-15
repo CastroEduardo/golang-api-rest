@@ -17,6 +17,7 @@ import (
 	"github.com/CastroEduardo/golang-api-rest/pkg/mongo_db"
 	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
 	"github.com/CastroEduardo/golang-api-rest/pkg/util"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

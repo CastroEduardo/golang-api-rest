@@ -41,6 +41,7 @@ func GetImageFullPath() string {
 // CheckImageExt check image file ext
 func CheckImageExt(fileName string) bool {
 	ext := file.GetExt(fileName)
+	fmt.Println(ext)
 	for _, allowExt := range setting.AppSetting.ImageAllowExts {
 		if strings.ToUpper(allowExt) == strings.ToUpper(ext) {
 			return true
@@ -65,11 +66,13 @@ func CheckImageSize(f multipart.File) bool {
 // CheckImage check if the file exists
 func CheckImage(src string) error {
 	dir, err := os.Getwd()
+
 	if err != nil {
 		return fmt.Errorf("os.Getwd err: %v", err)
 	}
 
 	err = file.IsNotExistMkDir(dir + "/" + src)
+
 	if err != nil {
 		return fmt.Errorf("file.IsNotExistMkDir err: %v", err)
 	}

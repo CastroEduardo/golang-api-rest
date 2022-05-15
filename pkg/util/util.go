@@ -94,7 +94,7 @@ func EncryptAES(text string) (string, error) {
 }
 
 // Decrypt method is to extract back the encrypted text
-func DecryptAES(text string) (string, error) {
+func ecryptAES(text string) (string, error) {
 	block, err := aes.NewCipher([]byte(MySecret))
 	if err != nil {
 		return "", err
@@ -105,6 +105,7 @@ func DecryptAES(text string) (string, error) {
 	cfb.XORKeyStream(plainText, cipherText)
 	return string(plainText), nil
 }
+
 func Decode(s string) []byte {
 	data, err := base64.StdEncoding.DecodeString(s)
 	if err != nil {

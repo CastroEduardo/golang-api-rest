@@ -26,6 +26,9 @@ type App struct {
 	LogSaveName string
 	LogFileExt  string
 	TimeFormat  string
+
+	TimePersistToken    int
+	TimeNotPersistToken int
 }
 
 var AppSetting = &App{}

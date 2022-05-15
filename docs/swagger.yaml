@@ -3,14 +3,13 @@ definitions:
     properties:
       code:
         type: integer
-      data:
-        type: object
+      data: {}
       msg:
         type: string
     type: object
 info:
   contact: {}
-  description: An example of gin
+  description: Sample of WebApiRest
   license:
     name: MIT
     url: https://github.com/CastroEduardo/golang-api-rest/blob/master/LICENSE
@@ -129,6 +128,60 @@ paths:
           schema:
             $ref: '#/definitions/app.Response'
       summary: Post Auth
+      tags:
+      - Auth
+  /auth/checkstatustoken:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      security:
+      - bearerAuth: []
+      summary: Post ClaimUser
+      tags:
+      - Auth
+  /auth/claim-user:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      security:
+      - bearerAuth: []
+      summary: Post ClaimUser
+      tags:
+      - Auth
+  /auth/logout:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      security:
+      - bearerAuth: []
+      summary: Post ClaimUser
       tags:
       - Auth
 securityDefinitions:

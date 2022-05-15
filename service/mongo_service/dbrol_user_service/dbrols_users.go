@@ -92,3 +92,16 @@ func GetList() []authinterfaces.RolUser {
 
 	return list
 }
+
+func FindToIdRol(idRolUser string) authinterfaces.RolUser {
+	settingsCollections()
+	var modelSend authinterfaces.RolUser
+	if collection != nil {
+		//transform string _id to Object
+		docID, _ := primitive.ObjectIDFromHex(idRolUser)
+		doc := collection.FindOne(context.TODO(), bson.M{"_id": docID})
+		doc.Decode(&modelSend)
+
+	}
+	return modelSend
+}

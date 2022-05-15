@@ -15,7 +15,8 @@ type LoginUser struct {
 type ClaimSession struct {
 	Company
 	User
-	PrivilegeRolUser
+	UserPrivileges
+	RolUser
 }
 
 type IUserLogin struct {
@@ -32,38 +33,40 @@ type Company struct {
 	Status    int       `json:"status" bson:"status"`
 	Image     string    `json:"image" bson:"image"`
 	Rnc       string    `json:"rnc" bson:"rnc"`
-	Other     string    `json:"other" bson:"other"`
+	Others    string    `json:"others" bson:"others"`
 	DateAdd   time.Time `json:"dateAdd" bson:"dateadd"`
 }
 
 type User struct {
-	ID        string    `json:"id,omitempty" bson:"_id,omitempty"`
-	NickName  string    `json:"nickName" bson:"nickname"`
-	Name      string    `json:"name" bson:"name"`
-	LastName  string    `json:"lastName" bson:"lastName"`
-	Contact   string    `json:"contact" bson:"contact"`
-	City      string    `json:"city" bson:"city"`
-	Gender    string    `json:"gender" bson:"gender"`
-	Email     string    `json:"email" bson:"email"`
-	IdRol     string    `json:"idRol" bson:"idrol"`
-	IdCompany string    `json:"idCompany"  bson:"idcompany"`
-	Status    int       `json:"status" bson:"status"`
-	Image     string    `json:"image" bson:"image"`
-	Note      string    `json:"note" bson:"note"`
-	ForcePass bool      `json:"forcePass" bson:"forcepass"`
-	Public    int       `json:"public" bson:"public"`
-	Password  string    `json:"password" bson:"password"`
-	LastLogin time.Time `json:"lastLogin" bson:"lastlogin"`
-	DateAdd   time.Time `json:"dateAdd" bson:"dateadd"`
+	ID              string    `json:"id,omitempty" bson:"_id,omitempty"`
+	NickName        string    `json:"nickName" bson:"nickname"`
+	Name            string    `json:"name" bson:"name"`
+	LastName        string    `json:"lastName" bson:"lastName"`
+	Contact         string    `json:"contact" bson:"contact"`
+	City            string    `json:"city" bson:"city"`
+	Gender          string    `json:"gender" bson:"gender"`
+	Email           string    `json:"email" bson:"email"`
+	IdRol           string    `json:"idRol" bson:"idrol"`
+	IdCompany       string    `json:"idCompany"  bson:"idcompany"`
+	Status          int       `json:"status" bson:"status"`
+	Image           string    `json:"image" bson:"image"`
+	Note            string    `json:"note" bson:"note"`
+	ForcePass       bool      `json:"forcePass" bson:"forcepass"`
+	Public          int       `json:"public" bson:"public"`
+	Password        string    `json:"password" bson:"password"`
+	LastLogin       time.Time `json:"lastLogin" bson:"lastlogin"`
+	DefaultPathHome string    `json:"defaultpathhome" bson:"defaultpathhome"`
+	DateAdd         time.Time `json:"dateAdd" bson:"dateadd"`
 }
 
-type PrivilegeRolUser struct {
-	ID        string `json:"id,omitempty" bson:"_id,omitempty"`
-	IdRol     string `json:"idRol" bson:"idrol"`
-	IdCompany string `json:"idCompany"  bson:"idcompany"`
-	WebAccess bool   `json:"webAccess" bson:"webaccess"`
-	Config    int    `json:"config" bson:"config"`
-	TypeUser  int    `json:"typeUser" bson:"typeUser"`
+type UserPrivileges struct {
+	ID           string         `json:"id,omitempty" bson:"_id,omitempty"`
+	IdRol        string         `json:"idRol" bson:"idrol"`
+	IdCompany    string         `json:"idCompany"  bson:"idcompany"`
+	WebAccess    bool           `json:"webAccess" bson:"webaccess"`
+	Config       int            `json:"config" bson:"config"`
+	TypeUser     int            `json:"typeUser" bson:"typeUser"`
+	UrlListblack []UrlLiskBlack `json:"urlListBlack" bson:"urlListBlack"`
 }
 
 type RolUser struct {
@@ -73,6 +76,12 @@ type RolUser struct {
 	Note      string    `json:"note" bson:"note"`
 	Date      time.Time `json:"date" bson:"date"`
 	IdCompany string    `json:"idCompany"  bson:"idcompany"`
+}
+
+type UrlLiskBlack struct {
+	Path string
+	Name string
+	Mode int
 }
 
 type SessionUser struct {

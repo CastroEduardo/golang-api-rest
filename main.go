@@ -10,7 +10,8 @@ import (
 
 	//github.com/CastroEduardo/golang-api-rest/models"
 
-	"github.com/CastroEduardo/golang-api-rest/pkg/gredis"
+	// "github.com/CastroEduardo/golang-api-rest/pkg/gredis"
+
 	"github.com/CastroEduardo/golang-api-rest/pkg/logging"
 	"github.com/CastroEduardo/golang-api-rest/pkg/mongo_db"
 	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
@@ -22,19 +23,20 @@ func init() {
 	setting.Setup()
 	//models.Setup()
 	logging.Setup()
-	gredis.Setup()
+	// gredis.Setup()
 	mongo_db.Setup()
 	util.Setup()
 
 	time.Sleep(1 * time.Second)
 
 	//setting_create_user.Create_first_user()
+	//result := logs_service.Add("ads")
 
 }
 
 // @title Golang Gin API
 // @version 1.0
-// @description An example of gin
+// @description Sample of WebApiRest
 // @termsOfService https://github.com/CastroEduardo/golang-api-rest
 // @license.name MIT
 // @license.url https://github.com/CastroEduardo/golang-api-rest/blob/master/LICENSE
@@ -47,11 +49,12 @@ func main() {
 	routersInit := routers.InitRouter()
 	readTimeout := setting.ServerSetting.ReadTimeout
 	writeTimeout := setting.ServerSetting.WriteTimeout
-	endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort)
+	endPoint := fmt.Sprintf("localhost:%d", setting.ServerSetting.HttpPort)
 	maxHeaderBytes := 1 << 20
 
+	//fmt.Println(endPoint)
 	server := &http.Server{
-		Addr:           "localhost" + endPoint,
+		Addr:           endPoint,
 		Handler:        routersInit,
 		ReadTimeout:    readTimeout,
 		WriteTimeout:   writeTimeout,

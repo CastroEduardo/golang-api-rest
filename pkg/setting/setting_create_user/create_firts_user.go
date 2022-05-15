@@ -41,7 +41,7 @@ func create_company() string {
 		Image:     "logo1.png",
 		NameLong:  "Nombre Largo Empresa #1",
 		NameShort: "Nombre Corto #1",
-		Other:     "Otros Datos",
+		Others:    "Otros Datos",
 		Phone:     "809-561-2512 / 809-245-5444",
 		Rnc:       "001-0215211-0",
 		Slogan:    "Slogan Company #1",
@@ -68,15 +68,60 @@ func create_rol_useradmin() string {
 	return getId
 }
 
+type Base struct {
+	ID string
+}
+
+type Child struct {
+	Base
+	a string
+	b string
+}
+
+type UrlLiskBlack1 struct {
+	path string
+	name string
+	mode int
+}
+
+type UrlLiskBlack struct {
+	Path string
+	Name string
+	Mode int
+}
+
 func create_privileges_rol_useradmin() string {
 
-	privilege := authinterfaces.PrivilegeRolUser{
+	//var de = &authinterfaces.UrlLiskBlack{}
 
-		IdRol:     idRolUser,
-		IdCompany: idCompany,
-		WebAccess: true,
-		Config:    1,
-		TypeUser:  1,
+	// child.ID = "foo"
+	// read := authinterfaces.UrlLiskBlack{
+	// 	name: "asd",
+	// 	path: "",
+	// 	mode: 1,
+	// }
+
+	list1 := []authinterfaces.UrlLiskBlack{{
+		Path: "/home1",
+		Name: "/home",
+		Mode: 1,
+	}, {
+		Path: "/home2",
+		Name: "/home",
+		Mode: 1,
+	}, {
+		Path: "/home3",
+		Name: "/home",
+		Mode: 1,
+	}}
+
+	privilege := authinterfaces.UserPrivileges{
+		IdRol:        idRolUser,
+		IdCompany:    idCompany,
+		WebAccess:    true,
+		Config:       1,
+		TypeUser:     1,
+		UrlListblack: list1,
 	}
 
 	getId := dbprivilege_rol_user_service.Add(privilege)
@@ -87,23 +132,24 @@ func create_privileges_rol_useradmin() string {
 func create_user() string {
 
 	newUser := authinterfaces.User{
-		DateAdd:   time.Now(),
-		IdCompany: idCompany,
-		IdRol:     idRolUser,
-		Email:     "castro2354@gmail.com",
-		Image:     "imagen",
-		LastLogin: time.Now(),
-		LastName:  "apellido2",
-		Name:      "NOmbre2",
-		Password:  util.Encript([]byte("22222")),
-		Status:    1,
-		NickName:  "usuario1",
-		ForcePass: true,
-		Contact:   "contact",
-		City:      "city",
-		Gender:    "male",
-		Note:      "this is  a note for user",
-		Public:    1,
+		DateAdd:         time.Now(),
+		IdCompany:       idCompany,
+		IdRol:           idRolUser,
+		Email:           "castro2354@gmail.com",
+		Image:           "imagen",
+		LastLogin:       time.Now(),
+		LastName:        "apellido2",
+		Name:            "NOmbre2",
+		Password:        util.Encript([]byte("22222")),
+		Status:          1,
+		NickName:        "usuario1",
+		ForcePass:       true,
+		Contact:         "contact",
+		City:            "city",
+		Gender:          "male",
+		Note:            "this is  a note for user",
+		Public:          1,
+		DefaultPathHome: "/dashboard/analysis",
 	}
 
 	getId := dbusers_service.Add(newUser)

@@ -1,0 +1,308 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i386-apple-darwin11.3.0
+ 
+
+# Make data base, printed on Sat May 14 21:44:36 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+LC_CTYPE = UTF-8
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /Users/ecastro_mbp/Desktop/golang_restapi
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/make
+# makefile (from `Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/91/5j8x0hqx5jjbljzl07dyy2ph0000gp/T/vscode-ipc-c779218f-1501-42b0-ae90-638921fbf704.sock
+# environment
+VSCODE_CWD = /Users/ecastro_mbp/Desktop/golang_restapi
+# environment
+GOPROXY = https://proxy.golang.org,direct
+# environment
+PATH = /usr/local/opt/node@14/bin:/Users/ecastro_mbp/go/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Users/ecastro_mbp/Library/Android/sdk/platform-tools:/Users/ecastro_mbp/Library/Android/sdk/tools:/Users/ecastro_mbp/Library/Android/sdk/tools/bin﻿:/opt/flutter/bin
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+GOPATH = /Users/ecastro_mbp/go
+# environment
+LaunchInstanceID = A79581CA-1AA4-484A-B42E-960B29BCB243
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+ANDROID_HOME = Users/ecastro_mbp/Library/Android/sdk
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.7NEMC0aNOm/Listeners
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /Users/ecastro_mbp/Desktop/golang_restapi
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+GOMODCACHE = /Users/ecastro_mbp/go/pkg/mod
+# environment
+HOME = /Users/ecastro_mbp
+# default
+MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/ecastro_mbp/Library/Application Support/Code/CachedData/da15b6fd3ef856477bf6f4fb29ba1b7af717770d
+# environment
+LOGNAME = ecastro_mbp
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+ZSH = /Users/ecastro_mbp/.oh-my-zsh
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XPC_FLAGS = 0x0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 3
+# default
+MAKE_VERSION := 3.81
+# environment
+USER = ecastro_mbp
+# makefile
+.DEFAULT_GOAL := all
+# environment
+TERM_SESSION_ID = 8A6602A7-0029-4453-B0FD-8F7E434EA735
+# environment
+LESS = -R
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+ 
+MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
+# environment
+TERM_PROGRAM = Apple_Terminal
+# default
+.VARIABLES := 
+# environment
+TMPDIR = /var/folders/91/5j8x0hqx5jjbljzl07dyy2ph0000gp/T/
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /Users/ecastro_mbp/Library/Application Support/Code/1.67.1-main.sock
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+TERM_PROGRAM_VERSION = 433
+# environment
+XPC_SERVICE_NAME = 0
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# automatic
++F = $(notdir $+)
+# environment
+__CF_USER_TEXT_ENCODING = 0x1F6:0x0:0x0
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+PAGER = less
+# environment
+LC_ALL = C
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# default
+.INCLUDE_DIRS = /usr/local/include
+# environment
+MAKELEVEL := 0
+# environment
+LANG = C
+# environment
+TERM = xterm-256color
+# environment
+VSCODE_PID = 23705
+# variable set hash-table stats:
+# Load=76/1024=7%, Rehash=0, Collisions=2/102=2%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 16777220, inode 12887316094): 33 files, no impossibilities.
+
+# 33 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+all: build
+#  Command-line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/2=0%
+
+.PHONY: build clean tool lint help
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-11 16:31:21
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+tool:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 9):
+	go vet ./...; true
+	gofmt -w .
+	
+
+build:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: `'
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := build
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+ 
+# ^ := 
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/10=10%
+#  commands to execute (from `Makefile', line 6):
+	@go build -v .
+	
+
+help:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 20):
+	@echo "make: compile packages and dependencies"
+	@echo "make tool: run specified go tool"
+	@echo "make lint: golint ./..."
+	@echo "make clean: remove object files and cached files"
+	
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 16):
+	rm -rf go-gin-example
+	go clean -i .
+	
+
+lint:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 13):
+	golint ./...
+	
+
+# files hash-table stats:
+# Load=10/1024=1%, Rehash=0, Collisions=2/30=7%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 1
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+
+# Finished Make data base on Sat May 14 21:44:36 2022
+
+ 

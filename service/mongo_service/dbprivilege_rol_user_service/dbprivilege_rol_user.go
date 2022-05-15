@@ -28,7 +28,7 @@ func settingsCollections() {
 	}
 }
 
-func Add(Model authinterfaces.PrivilegeRolUser) string {
+func Add(Model authinterfaces.UserPrivileges) string {
 	settingsCollections()
 
 	if collection != nil {
@@ -46,15 +46,15 @@ func Add(Model authinterfaces.PrivilegeRolUser) string {
 	return ""
 }
 
-func GetListForIdCompany(idCompany string) []authinterfaces.PrivilegeRolUser {
+func GetListForIdCompany(idCompany string) []authinterfaces.UserPrivileges {
 	settingsCollections()
-	var list []authinterfaces.PrivilegeRolUser
+	var list []authinterfaces.UserPrivileges
 	if collection != nil {
 		//transform string _id to Object
 		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
 		doc, _ := collection.Find(context.TODO(), bson.M{"idcompany": idCompany})
 		//doc.Decode(&hero)
-		var hero authinterfaces.PrivilegeRolUser
+		var hero authinterfaces.UserPrivileges
 		for doc.Next(context.TODO()) {
 			// Declare a result BSON object
 			//var result bson.M
@@ -69,9 +69,9 @@ func GetListForIdCompany(idCompany string) []authinterfaces.PrivilegeRolUser {
 	return list
 }
 
-func FindToIdRol(idRolUser string) authinterfaces.PrivilegeRolUser {
+func FindToIdRol(idRolUser string) authinterfaces.UserPrivileges {
 	settingsCollections()
-	var modelSend authinterfaces.PrivilegeRolUser
+	var modelSend authinterfaces.UserPrivileges
 	if collection != nil {
 		//transform string _id to Object
 		//docID, _ := primitive.ObjectIDFromHex(idRolUser)

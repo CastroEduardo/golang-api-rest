@@ -14,6 +14,7 @@ import (
 	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbcompany_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbprivilege_rol_user_service"
+	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbrol_user_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbusers_service"
 	"github.com/dgrijalva/jwt-go"
 	"go.mongodb.org/mongo-driver/bson"
@@ -74,10 +75,8 @@ func UpdateOne(ModelUpdate authinterfaces.SessionUser) bool {
 
 	//var modelSend authinterfaces.User
 	if collection != nil {
-
 		var id = ModelUpdate.ID
 		ModelUpdate.ID = ""
-
 		update := bson.M{
 			"$set": ModelUpdate,
 		}
@@ -91,7 +90,7 @@ func UpdateOne(ModelUpdate authinterfaces.SessionUser) bool {
 		}
 	}
 
-	return false
+	return true
 }
 
 func FindToId(id string) authinterfaces.SessionUser {
@@ -174,38 +173,38 @@ func GetIdSessionToToken(tokenHeader string) string {
 
 }
 
-func GetClaimForToken(tokenHeader string) authinterfaces.ClaimSession {
+func GetClaimForToken(token string) authinterfaces.ClaimSession {
 
 	SendModel := authinterfaces.ClaimSession{}
 
-	if tokenHeader == "" {
-		return SendModel
-	}
+	// if tokenHeader == "" {
+	// 	return SendModel
+	// }
 
 	settingsCollections()
 
-	splitted := strings.Split(tokenHeader, " ") //The token normally comes in format `Bearer {token-body}`, we check if the retrieved token matched this requirement
-	tokenPart := splitted[1]                    //Grab the token part, what we are truly interested in
-	tk := &authinterfaces.Token{}
+	// splitted := strings.Split(tokenHeader, " ") //The token normally comes in format `Bearer {token-body}`, we check if the retrieved token matched this requirement
+	// tokenPart := splitted[1]                    //Grab the token part, what we are truly interested in
+	// tk := &authinterfaces.Token{}
 
-	//fmt.Println(tokenPart)
-	_, errt := jwt.ParseWithClaims(tokenPart, tk, func(token *jwt.Token) (interface{}, error) {
-		return []byte(os.Getenv("TOKEN_HASH")), nil
-	})
+	// //fmt.Println(tokenPart)
+	// _, errt := jwt.ParseWithClaims(tokenPart, tk, func(token *jwt.Token) (interface{}, error) {
+	// 	return []byte(os.Getenv("TOKEN_HASH")), nil
+	// })
 
-	if errt != nil {
-		return SendModel
-	}
+	// if errt != nil {
+	// 	return SendModel
+	// }
 
-	if tk.IdSession == "" {
+	if token == "" {
 		return SendModel
 	}
 
 	var dataSession authinterfaces.SessionUser
 	if collection != nil {
 		//transform string _id to Object
-		docID, _ := primitive.ObjectIDFromHex(tk.IdSession)
-		doc := collection.FindOne(context.TODO(), bson.M{"_id": docID})
+		//docID, _ := primitive.ObjectIDFromHex(token)
+		doc := collection.FindOne(context.TODO(), bson.M{"token": token})
 		doc.Decode(&dataSession)
 	}
 
@@ -218,9 +217,13 @@ func GetClaimForToken(tokenHeader string) authinterfaces.ClaimSession {
 	dataUser.Password = ""
 	SendModel.User = dataUser
 
-	var dataPrivilegesRol authinterfaces.PrivilegeRolUser
+	var dataPrivilegesRol authinterfaces.UserPrivileges
 	dataPrivilegesRol = dbprivilege_rol_user_service.FindToIdRol(dataUser.IdRol)
-	SendModel.PrivilegeRolUser = dataPrivilegesRol
+	SendModel.UserPrivileges = dataPrivilegesRol
+
+	var dataRolUser authinterfaces.RolUser
+	dataRolUser = dbrol_user_service.FindToIdRol(dataUser.IdRol)
+	SendModel.RolUser = dataRolUser
 
 	//fmt.Println(dataPrivilegesRol)
 
