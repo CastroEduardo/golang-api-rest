@@ -24,17 +24,18 @@ type IUserLogin struct {
 }
 
 type Company struct {
-	ID        string    `json:"id,omitempty" bson:"_id,omitempty"`
-	NameLong  string    `json:"nameLong" bson:"namelong"`
-	NameShort string    `json:"nameShort" bson:"nameshort"`
-	Address   string    `json:"address" bson:"address"`
-	Slogan    string    `json:"slogan" bson:"slogan"`
-	Phone     string    `json:"phone" bson:"phone"`
-	Status    int       `json:"status" bson:"status"`
-	Image     string    `json:"image" bson:"image"`
-	Rnc       string    `json:"rnc" bson:"rnc"`
-	Others    string    `json:"others" bson:"others"`
-	DateAdd   time.Time `json:"dateAdd" bson:"dateadd"`
+	ID          string    `json:"id,omitempty" bson:"_id,omitempty"`
+	NameLong    string    `json:"nameLong" bson:"namelong"`
+	NameShort   string    `json:"nameShort" bson:"nameshort"`
+	Address     string    `json:"address" bson:"address"`
+	Slogan      string    `json:"slogan" bson:"slogan"`
+	Phone       string    `json:"phone" bson:"phone"`
+	Status      int       `json:"status" bson:"status"`
+	Image       string    `json:"image" bson:"image"`
+	Rnc         string    `json:"rnc" bson:"rnc"`
+	Others      string    `json:"others" bson:"others"`
+	DateAdd     time.Time `json:"dateAdd" bson:"dateadd"`
+	FolderFiles string    `json:"folderfiles" bson:"folderfiles"`
 }
 
 type User struct {
@@ -57,6 +58,7 @@ type User struct {
 	LastLogin       time.Time `json:"lastLogin" bson:"lastlogin"`
 	DefaultPathHome string    `json:"defaultpathhome" bson:"defaultpathhome"`
 	DateAdd         time.Time `json:"dateAdd" bson:"dateadd"`
+	ToursInit       bool      `json:"toursinit" bson:"toursinit"`
 }
 
 type UserPrivileges struct {

@@ -36,16 +36,17 @@ func Create_first_user() string {
 func create_company() string {
 
 	newCompany := authinterfaces.Company{
-		Address:   "Direccion #1 ",
-		DateAdd:   time.Now(),
-		Image:     "logo1.png",
-		NameLong:  "Nombre Largo Empresa #1",
-		NameShort: "Nombre Corto #1",
-		Others:    "Otros Datos",
-		Phone:     "809-561-2512 / 809-245-5444",
-		Rnc:       "001-0215211-0",
-		Slogan:    "Slogan Company #1",
-		Status:    1,
+		Address:     "Direccion #1 ",
+		DateAdd:     time.Now(),
+		Image:       "logo1.png",
+		NameLong:    "Nombre Largo Empresa #1",
+		NameShort:   "Nombre Corto #1",
+		Others:      "Otros Datos",
+		Phone:       "809-561-2512 / 809-245-5444",
+		Rnc:         "001-0215211-0",
+		Slogan:      "Slogan Company #1",
+		Status:      1,
+		FolderFiles: "8772312222287",
 	}
 
 	result := dbcompany_service.Add(newCompany)
@@ -132,24 +133,26 @@ func create_privileges_rol_useradmin() string {
 func create_user() string {
 
 	newUser := authinterfaces.User{
-		DateAdd:         time.Now(),
-		IdCompany:       idCompany,
-		IdRol:           idRolUser,
-		Email:           "castro2354@gmail.com",
-		Image:           "imagen",
-		LastLogin:       time.Now(),
-		LastName:        "apellido2",
-		Name:            "NOmbre2",
-		Password:        util.Encript([]byte("22222")),
-		Status:          1,
+		ID:              idCompany,
 		NickName:        "usuario1",
-		ForcePass:       true,
+		Name:            "NOmbre2",
+		LastName:        "apellido2",
 		Contact:         "contact",
 		City:            "city",
 		Gender:          "male",
+		Email:           "castro2354@gmail.com",
+		IdRol:           idRolUser,
+		IdCompany:       idCompany,
+		Status:          1,
+		Image:           "imagen",
 		Note:            "this is  a note for user",
+		ForcePass:       true,
 		Public:          1,
+		Password:        util.Encript([]byte("22222")),
+		LastLogin:       time.Now(),
 		DefaultPathHome: "/dashboard/analysis",
+		DateAdd:         time.Now(),
+		ToursInit:       false,
 	}
 
 	getId := dbusers_service.Add(newUser)

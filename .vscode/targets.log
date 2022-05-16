@@ -8,10 +8,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sat May 14 21:44:36 2022
+# Make data base, printed on Mon May 16 18:11:25 2022
 
 # Variables
 
+ 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -43,7 +44,7 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/91/5j8x0hqx5jjbljzl07dyy2ph0000gp/T/vscode-ipc-c779218f-1501-42b0-ae90-638921fbf704.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/91/5j8x0hqx5jjbljzl07dyy2ph0000gp/T/vscode-ipc-ac6b5eec-e1c1-444c-8f74-948dde6e92b3.sock
 # environment
 VSCODE_CWD = /Users/ecastro_mbp/Desktop/golang_restapi
 # environment
@@ -55,7 +56,7 @@ LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 GOPATH = /Users/ecastro_mbp/go
 # environment
-LaunchInstanceID = A79581CA-1AA4-484A-B42E-960B29BCB243
+LaunchInstanceID = F22B59DA-1748-4CA9-AA9B-D62FFB1E235A
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -65,7 +66,7 @@ ANDROID_HOME = Users/ecastro_mbp/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.7NEMC0aNOm/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.3P3xFwiWvk/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -109,13 +110,12 @@ USER = ecastro_mbp
 # makefile
 .DEFAULT_GOAL := all
 # environment
-TERM_SESSION_ID = 8A6602A7-0029-4453-B0FD-8F7E434EA735
+TERM_SESSION_ID = D161FDE9-1E66-4458-BB96-D0DE590B3FB0
 # environment
 LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
- 
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # environment
 TERM_PROGRAM = Apple_Terminal
@@ -142,6 +142,7 @@ XPC_SERVICE_NAME = 0
 # automatic
 +F = $(notdir $+)
 # environment
+ 
 __CF_USER_TEXT_ENCODING = 0x1F6:0x0:0x0
 # default
 MAKEFILES := 
@@ -164,7 +165,7 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 23705
+VSCODE_PID = 861
 # variable set hash-table stats:
 # Load=76/1024=7%, Rehash=0, Collisions=2/102=2%
 
@@ -207,7 +208,7 @@ all: build
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-11 16:31:21
+#  Last modified 2022-05-14 22:05:44
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -243,11 +244,11 @@ build:
 # automatic
 # < := 
 # automatic
- 
 # ^ := 
 # automatic
 # ? := 
 # variable set hash-table stats:
+ 
 # Load=8/32=25%, Rehash=0, Collisions=1/10=10%
 #  commands to execute (from `Makefile', line 6):
 	@go build -v .
@@ -303,6 +304,6 @@ lint:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat May 14 21:44:36 2022
+# Finished Make data base on Mon May 16 18:11:25 2022
 
  
