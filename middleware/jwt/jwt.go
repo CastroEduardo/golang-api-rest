@@ -1,7 +1,6 @@
 package jwt
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -23,10 +22,6 @@ func JWT() gin.HandlerFunc {
 			c.Next()
 			return
 		}
-
-		//fmt.Println(c.Request.RequestURI)
-		// token2 := strings.Split(c.Request.Header["Authorization"][0], "dasd ")[1]
-		// fmt.Println(token2)
 		auth := c.Request.Header.Get("Authorization")
 		if auth == "" {
 			c.String(http.StatusForbidden, "No Authorization header provided")
@@ -39,7 +34,7 @@ func JWT() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		fmt.Println("###########-->")
+		//fmt.Println("###########-->")
 		var code int
 		var data interface{}
 
@@ -113,9 +108,8 @@ func checkFilesSegurity(c *gin.Context) bool {
 	// }
 	// path1 := strings.Replace(path, ":filepath", "", 1)
 	// fmt.Println(" here !!! " + path1)
-	c.Next()
-	return true
-	fmt.Println("----> " + c.Request.URL.Path)
+
+	//fmt.Println("----> " + c.Request.URL.Path)
 	//Proted files in folder images####
 	token_key := c.Query("token") //com.StrTo(c.Param("id")
 	if token_key != "" {
@@ -138,11 +132,11 @@ func checkFilesSegurity(c *gin.Context) bool {
 		//get namFolderCompany
 		getIdFolder := dbcompany_service.FindToId(isLogin.IdCompany)
 		folderCompany := getIdFolder.FolderFiles
-		fmt.Println(folderCompany)
+		//fmt.Println(folderCompany)
 
 		//not permit = ap1/v2/upload/images/ only
 		longitud := len(c.Request.URL.Path)
-		fmt.Println(longitud)
+		//fmt.Println(longitud)
 		if longitud < 24 {
 			c.Request.URL.Path = ""
 		}
