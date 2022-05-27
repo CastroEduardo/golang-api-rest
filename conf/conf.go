@@ -13,4 +13,7 @@ const (
 	UserDisabled = "DISABLED"
 	UserFailed   = "FAILED"
 	UserSuccess  = "SUCCESS"
+
+	//urlUploadFiles
+	NameUrlPathFiles = "/uploads/images"
 )

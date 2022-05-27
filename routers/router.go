@@ -32,7 +32,8 @@ func InitRouter() *gin.Engine {
 
 	r.StaticFS("/export", http.Dir(export.GetExcelFullPath()))
 	//r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
-
+	// src := upload.GetImageFullPath()
+	// r.StaticFS("/upload/images", http.Dir(src))
 	// r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
 	r.StaticFS("/qrcode", http.Dir(qrcode.GetQrCodeFullPath()))
 
@@ -48,7 +49,6 @@ func InitRouter() *gin.Engine {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// r.POST("/upload", api.UploadImage)
-
 	apiv1 := r.Group(conf.NameUrlApi1)
 	apiv1.Use(jwt.JWT())
 	{
@@ -62,8 +62,7 @@ func InitRouter() *gin.Engine {
 		//apiv1.Static("/upload/images", src)
 		//apiv2.StaticFS("/test/", http.Dir(src))
 		src := upload.GetImageFullPath()
-		fmt.Println(src)
-		apiv2.StaticFS("/upload/images", http.Dir(src))
+		apiv2.StaticFS(conf.NameUrlPathFiles, http.Dir(src))
 		//apiv2.Static("/upload/images", "/Users/ecastro_mbp/Desktop/golang_restapi/upload/images/")
 		apiv2.GET(conf.ArticlesParms_GET, v2.GetArticle)
 

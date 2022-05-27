@@ -15,6 +15,7 @@ type App struct {
 	RuntimeRootPath string
 
 	ImageSavePath  string
+	FilesSavePath  string
 	ImageMaxSize   int
 	ImageAllowExts []string
 
@@ -36,6 +37,7 @@ var AppSetting = &App{}
 type Server struct {
 	RunMode      string
 	HttpPort     int
+	Host         string
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
 }

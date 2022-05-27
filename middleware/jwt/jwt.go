@@ -113,7 +113,8 @@ func checkFilesSegurity(c *gin.Context) bool {
 	// }
 	// path1 := strings.Replace(path, ":filepath", "", 1)
 	// fmt.Println(" here !!! " + path1)
-
+	// c.Next()
+	// return true
 	fmt.Println("----> " + c.Request.URL.Path)
 	//Proted files in folder images####
 	token_key := c.Query("token") //com.StrTo(c.Param("id")

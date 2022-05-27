@@ -33,9 +33,14 @@ func GetImagePath() string {
 	return setting.AppSetting.ImageSavePath
 }
 
+// GET PATH FILES SAVE
+func GetFilesPath() string {
+	return setting.AppSetting.FilesSavePath
+}
+
 // GetImageFullPath get full save path
 func GetImageFullPath() string {
-	return setting.AppSetting.RuntimeRootPath + GetImagePath()
+	return setting.AppSetting.RuntimeRootPath + GetFilesPath()
 }
 
 // CheckImageExt check image file ext

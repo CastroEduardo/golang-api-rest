@@ -48,10 +48,10 @@ func main() {
 	routersInit := routers.InitRouter()
 	readTimeout := setting.ServerSetting.ReadTimeout
 	writeTimeout := setting.ServerSetting.WriteTimeout
-	endPoint := fmt.Sprintf("localhost:%d", setting.ServerSetting.HttpPort)
+	endPoint := fmt.Sprintf("%s:%d", setting.ServerSetting.Host, setting.ServerSetting.HttpPort)
 	maxHeaderBytes := 1 << 20
 
-	//fmt.Println(endPoint)
+	fmt.Println(endPoint)
 	server := &http.Server{
 		Addr:           endPoint,
 		Handler:        routersInit,
