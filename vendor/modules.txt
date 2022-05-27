@@ -12,8 +12,6 @@ github.com/KyleBanks/depth
 ## explicit; go 1.14
 # github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 ## explicit
-github.com/alecthomas/template
-github.com/alecthomas/template/parse
 # github.com/astaxie/beego v1.9.3-0.20171218111859-f16688817aa4
 ## explicit
 github.com/astaxie/beego/validation
@@ -149,6 +147,9 @@ github.com/ugorji/go/codec
 # github.com/unknwon/com v1.0.1
 ## explicit
 github.com/unknwon/com
+# github.com/unrolled/secure v1.10.0
+## explicit; go 1.13
+github.com/unrolled/secure
 # github.com/urfave/cli/v2 v2.6.0
 ## explicit; go 1.18
 # github.com/xdg-go/pbkdf2 v1.0.0

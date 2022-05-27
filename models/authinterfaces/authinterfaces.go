@@ -12,15 +12,15 @@ type LoginUser struct {
 	Remember bool   `json:"remember"`
 }
 
-type ClaimSession struct {
-	Company
-	User
-	UserPrivileges
-	RolUser
-}
-
 type IUserLogin struct {
 	IdUser string `json:"idUser"`
+}
+
+type ClaimSession struct {
+	User           User           `json:"user" bson:"user"`
+	Company        Company        `json:"company" bson:"company"`
+	UserPrivileges UserPrivileges `json:"userPrivileges" bson:"userPrivileges"`
+	RolUser        RolUser        `json:"rolUser" bson:"rolUser"`
 }
 
 type Company struct {
@@ -35,7 +35,8 @@ type Company struct {
 	Rnc         string    `json:"rnc" bson:"rnc"`
 	Others      string    `json:"others" bson:"others"`
 	DateAdd     time.Time `json:"dateAdd" bson:"dateadd"`
-	FolderFiles string    `json:"folderfiles" bson:"folderfiles"`
+	FolderFiles string    `json:"folderFiles" bson:"folderfiles"`
+	UrlFiles    string    `json:"urlFiles" bson:"urlfiles"`
 }
 
 type User struct {
@@ -56,7 +57,7 @@ type User struct {
 	Public          int       `json:"public" bson:"public"`
 	Password        string    `json:"password" bson:"password"`
 	LastLogin       time.Time `json:"lastLogin" bson:"lastlogin"`
-	DefaultPathHome string    `json:"defaultpathhome" bson:"defaultpathhome"`
+	DefaultPathHome string    `json:"defaultPathHome" bson:"defaultpathhome"`
 	DateAdd         time.Time `json:"dateAdd" bson:"dateadd"`
 	ToursInit       bool      `json:"toursinit" bson:"toursinit"`
 }
@@ -68,7 +69,7 @@ type UserPrivileges struct {
 	WebAccess    bool           `json:"webAccess" bson:"webaccess"`
 	Config       int            `json:"config" bson:"config"`
 	TypeUser     int            `json:"typeUser" bson:"typeUser"`
-	UrlListblack []UrlLiskBlack `json:"urlListBlack" bson:"urlListBlack"`
+	UrlListblack []UrlLiskBlack `json:"urlListBlack" bson:"urllistblack"`
 }
 
 type RolUser struct {
@@ -87,15 +88,16 @@ type UrlLiskBlack struct {
 }
 
 type SessionUser struct {
-	ID          string    `json:"id,omitempty" bson:"_id,omitempty"`
-	IdUser      string    `json:"idUser" bson:"iduser"`
-	IdCompany   string    `json:"idCompany"  bson:"idcompany"`
-	Token       string    `json:"token" bson:"token"`
-	Active      bool      `json:"active" bson:"active"`
-	Remember    bool      `json:"remember" bson:"remember"`
-	TokenExpire time.Time `json:"tokenExpire" bson:"tokenExpire"`
-	DateAdd     time.Time `json:"dateAdd" bson:"dateadd"`
-	DateLogout  time.Time `json:"dateLogout" bson:"datelogout"`
+	ID             string    `json:"id,omitempty" bson:"_id,omitempty"`
+	IdUser         string    `json:"idUser" bson:"iduser"`
+	IdCompany      string    `json:"idCompany"  bson:"idcompany"`
+	Token          string    `json:"token" bson:"token"`
+	Active         bool      `json:"active" bson:"active"`
+	Remember       bool      `json:"remember" bson:"remember"`
+	TokenExpire    time.Time `json:"tokenExpire" bson:"tokenExpire"`
+	DateAdd        time.Time `json:"dateAdd" bson:"dateadd"`
+	DateLogout     time.Time `json:"dateLogout" bson:"datelogout"`
+	LastUpdateTime time.Time `json:"lastUpdateTime" bson:"lastupdatetime"`
 }
 
 type Token struct {

@@ -154,6 +154,7 @@ func FindToEmail(email string) authinterfaces.User {
 }
 
 func FindToId(id string) authinterfaces.User {
+	fmt.Println(id)
 	settingsCollections()
 	var modelSend authinterfaces.User
 	if collection != nil {

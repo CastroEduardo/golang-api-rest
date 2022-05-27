@@ -16,7 +16,7 @@
                                  time.Second * time.Duration(Sec))
 
 
-
+mkcert trtest localhost 192.168.1.111 ::1
 #to install swag in golang
 go get -u github.com/swaggo/swag/cmd/swag
 

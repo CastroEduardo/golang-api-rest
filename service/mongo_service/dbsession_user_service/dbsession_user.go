@@ -214,6 +214,8 @@ func GetClaimForToken(token string) authinterfaces.ClaimSession {
 
 	var dataUser authinterfaces.User
 	dataUser = dbusers_service.FindToId(dataSession.IdUser)
+	fmt.Println("----here")
+	fmt.Println(dataUser.NickName)
 	dataUser.Password = ""
 	SendModel.User = dataUser
 

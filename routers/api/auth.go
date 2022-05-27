@@ -184,13 +184,14 @@ func saveSessionUser(remember bool, user authinterfaces.User) sendModel {
 
 	//add session //generate session User
 	newSession := authinterfaces.SessionUser{
-		Token:       tokenGet,
-		Active:      true,
-		DateAdd:     time.Now(),
-		IdCompany:   user.IdCompany,
-		IdUser:      user.ID,
-		Remember:    remember,
-		TokenExpire: timeLoggout,
+		Token:          tokenGet,
+		Active:         true,
+		DateAdd:        time.Now(),
+		IdCompany:      user.IdCompany,
+		IdUser:         user.ID,
+		Remember:       remember,
+		TokenExpire:    timeLoggout,
+		LastUpdateTime: time.Now(),
 	}
 	dbsession_user_service.Add(newSession)
 
@@ -262,7 +263,7 @@ func PostClaimUser(c *gin.Context) {
 	dataModel["privilege"] = dataClaim.UserPrivileges
 	dataModel["rol"] = dataClaim.RolUser
 
-	//fmt.Println(dataClaim)
+	fmt.Println(dataClaim)
 
 	sendData.Success = true
 	sendData.Msg = "Claim Success .."
@@ -352,9 +353,12 @@ func PostCheckStatusSession(c *gin.Context) {
 		}
 	}
 	activeToken := dbsession_user_service.FindToToken(token)
+	activeToken.LastUpdateTime = time.Now()
 	if !activeToken.Active {
 		valid = false
 	}
+	//update lastTimeOnline
+	dbsession_user_service.UpdateOne(activeToken)
 	appG.Response(http.StatusOK, e.SUCCESS, valid)
 
 }

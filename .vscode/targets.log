@@ -8,11 +8,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Mon May 16 18:11:25 2022
+# Make data base, printed on Wed May 25 19:03:38 2022
 
 # Variables
-
  
+
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -44,7 +44,7 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/91/5j8x0hqx5jjbljzl07dyy2ph0000gp/T/vscode-ipc-ac6b5eec-e1c1-444c-8f74-948dde6e92b3.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/91/5j8x0hqx5jjbljzl07dyy2ph0000gp/T/vscode-ipc-4da8e72f-4e89-4434-ba67-20e7e86e577c.sock
 # environment
 VSCODE_CWD = /Users/ecastro_mbp/Desktop/golang_restapi
 # environment
@@ -56,8 +56,6 @@ LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 GOPATH = /Users/ecastro_mbp/go
 # environment
-LaunchInstanceID = F22B59DA-1748-4CA9-AA9B-D62FFB1E235A
-# environment
 VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
@@ -66,7 +64,7 @@ ANDROID_HOME = Users/ecastro_mbp/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.3P3xFwiWvk/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.QmsAArAM9G/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -84,7 +82,7 @@ MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/ecastro_mbp/Library/Application Support/Code/CachedData/da15b6fd3ef856477bf6f4fb29ba1b7af717770d
+VSCODE_CODE_CACHE_PATH = /Users/ecastro_mbp/Library/Application Support/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
 LOGNAME = ecastro_mbp
 # environment
@@ -110,7 +108,7 @@ USER = ecastro_mbp
 # makefile
 .DEFAULT_GOAL := all
 # environment
-TERM_SESSION_ID = D161FDE9-1E66-4458-BB96-D0DE590B3FB0
+TERM_SESSION_ID = 7D1F89F6-F6A4-436C-B250-B462A04F5526
 # environment
 LESS = -R
 # automatic
@@ -126,7 +124,7 @@ TMPDIR = /var/folders/91/5j8x0hqx5jjbljzl07dyy2ph0000gp/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/ecastro_mbp/Library/Application Support/Code/1.67.1-main.sock
+VSCODE_IPC_HOOK = /Users/ecastro_mbp/Library/Application Support/Code/1.67.2-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -142,7 +140,6 @@ XPC_SERVICE_NAME = 0
 # automatic
 +F = $(notdir $+)
 # environment
- 
 __CF_USER_TEXT_ENCODING = 0x1F6:0x0:0x0
 # default
 MAKEFILES := 
@@ -159,15 +156,16 @@ SUFFIXES :=
 # default
 .INCLUDE_DIRS = /usr/local/include
 # environment
+ 
 MAKELEVEL := 0
 # environment
 LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 861
+VSCODE_PID = 2565
 # variable set hash-table stats:
-# Load=76/1024=7%, Rehash=0, Collisions=2/102=2%
+# Load=75/1024=7%, Rehash=0, Collisions=2/101=2%
 
 # Pattern-specific Variable Values
 
@@ -248,7 +246,6 @@ build:
 # automatic
 # ? := 
 # variable set hash-table stats:
- 
 # Load=8/32=25%, Rehash=0, Collisions=1/10=10%
 #  commands to execute (from `Makefile', line 6):
 	@go build -v .
@@ -304,6 +301,6 @@ lint:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon May 16 18:11:25 2022
+# Finished Make data base on Wed May 25 19:03:38 2022
 
  

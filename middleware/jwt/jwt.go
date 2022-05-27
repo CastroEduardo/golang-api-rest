@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/CastroEduardo/golang-api-rest/pkg/e"
+	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbcompany_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbsession_user_service"
 
 	"github.com/CastroEduardo/golang-api-rest/pkg/util"
@@ -17,32 +18,10 @@ import (
 // JWT is jwt middleware
 func JWT() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		//c.Request.URL.Path = "http://sgoogle.com"
-		// oldpath := c.Request.URL.Path
-		// result := strings.Replace(oldpath, "folder1", "766612", -1)
-		// c.Request.URL.Path = result
-		// // fmt.Println(c.Request.Host)
-		// fmt.Println(c.Request.URL.Path)
 
-		//Proted files in folder images####
-		token_key := c.Query("token") //com.StrTo(c.Param("id")
-		if token_key != "" {
-			//not permit =/upload/images/ only
-			longitud := len(c.Request.URL.Path)
-			if longitud < 22 {
-				c.Request.URL.Path = ""
-			}
-			folderCompany := "766612"
-			//check min lent of folder to company
-			longitud2 := len(c.Request.URL.Path + folderCompany)
-			if longitud2 < 38 {
-				c.Request.URL.Path = ""
-			}
-			isLogin := dbsession_user_service.FindToToken(token_key)
-			if isLogin.Active {
-				c.Next()
-				return
-			}
+		if checkFilesSegurity(c) {
+			c.Next()
+			return
 		}
 
 		//fmt.Println(c.Request.RequestURI)
@@ -118,5 +97,72 @@ func JWT() gin.HandlerFunc {
 }
 
 func checkTokenDbSession(token string) bool {
+	return false
+}
+
+func checkFilesSegurity(c *gin.Context) bool {
+	//c.Request.URL.Path = "http://sgoogle.com"
+	// oldpath := c.Request.URL.Path
+	// result := strings.Replace(oldpath, "folder1", "766612", -1)
+	// c.Request.URL.Path = result
+	// // fmt.Println(c.Request.Host)
+	// fmt.Println(c.Request.URL.Path)
+	// path := c.Request.URL.Path
+	// for _, param := range c.Params {
+	// 	path = strings.Replace(path, param.Value, ":"+param.Key, 1)
+	// }
+	// path1 := strings.Replace(path, ":filepath", "", 1)
+	// fmt.Println(" here !!! " + path1)
+
+	fmt.Println("----> " + c.Request.URL.Path)
+	//Proted files in folder images####
+	token_key := c.Query("token") //com.StrTo(c.Param("id")
+	if token_key != "" {
+
+		//check expire token
+		_, err := util.ParseToken(token_key)
+		if err != nil {
+			switch err.(*jwt.ValidationError).Errors {
+			case jwt.ValidationErrorExpired:
+				return false
+				//code = e.ERROR_AUTH_CHECK_TOKEN_TIMEOUT
+			default:
+				//code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
+				return false
+			}
+		}
+
+		isLogin := dbsession_user_service.FindToToken(token_key)
+
+		//get namFolderCompany
+		getIdFolder := dbcompany_service.FindToId(isLogin.IdCompany)
+		folderCompany := getIdFolder.FolderFiles
+		fmt.Println(folderCompany)
+
+		//not permit = ap1/v2/upload/images/ only
+		longitud := len(c.Request.URL.Path)
+		fmt.Println(longitud)
+		if longitud < 24 {
+			c.Request.URL.Path = ""
+		}
+
+		lengFolder := len(folderCompany)
+		minLeght := lengFolder + 22 + 5
+
+		//check min lent of folder to company
+		longitud2 := len(c.Request.URL.Path)
+		if longitud2 < minLeght {
+			c.Request.URL.Path = ""
+		}
+
+		if isLogin.Active {
+			c.Next()
+			return true
+		}
+
+		return false
+
+	}
+
 	return false
 }

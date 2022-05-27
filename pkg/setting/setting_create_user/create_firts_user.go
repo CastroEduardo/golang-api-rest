@@ -36,17 +36,19 @@ func Create_first_user() string {
 func create_company() string {
 
 	newCompany := authinterfaces.Company{
-		Address:     "Direccion #1 ",
-		DateAdd:     time.Now(),
-		Image:       "logo1.png",
+		ID:          idCompany,
 		NameLong:    "Nombre Largo Empresa #1",
 		NameShort:   "Nombre Corto #1",
-		Others:      "Otros Datos",
-		Phone:       "809-561-2512 / 809-245-5444",
-		Rnc:         "001-0215211-0",
+		Address:     "Direccion #1 ",
 		Slogan:      "Slogan Company #1",
+		Phone:       "809-561-2512 / 809-245-5444",
 		Status:      1,
-		FolderFiles: "8772312222287",
+		Image:       "logo1.png",
+		Rnc:         "001-0215211-0",
+		Others:      "Otros Datos",
+		DateAdd:     time.Now(),
+		FolderFiles: "9882388812121212121212_3233-2311",
+		UrlFiles:    "https://localhost:30001",
 	}
 
 	result := dbcompany_service.Add(newCompany)
@@ -133,7 +135,6 @@ func create_privileges_rol_useradmin() string {
 func create_user() string {
 
 	newUser := authinterfaces.User{
-		ID:              idCompany,
 		NickName:        "usuario1",
 		Name:            "NOmbre2",
 		LastName:        "apellido2",
@@ -152,7 +153,7 @@ func create_user() string {
 		LastLogin:       time.Now(),
 		DefaultPathHome: "/dashboard/analysis",
 		DateAdd:         time.Now(),
-		ToursInit:       false,
+		ToursInit:       true,
 	}
 
 	getId := dbusers_service.Add(newUser)
