@@ -1,8 +1,7 @@
 package main
 
 import (
-	"crypto/tls"
-	"log"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -49,32 +48,18 @@ func main() {
 	routersInit := routers.InitRouter()
 	readTimeout := setting.ServerSetting.ReadTimeout
 	writeTimeout := setting.ServerSetting.WriteTimeout
-	//endPoint := fmt.Sprintf("localhost:%d", setting.ServerSetting.HttpPort)
-
+	endPoint := fmt.Sprintf("localhost:%d", setting.ServerSetting.HttpPort)
 	maxHeaderBytes := 1 << 20
-
-	cfg := &tls.Config{
-		MinVersion:               tls.VersionTLS12,
-		CurvePreferences:         []tls.CurveID{tls.CurveP521, tls.CurveP384, tls.CurveP256},
-		PreferServerCipherSuites: true,
-		CipherSuites: []uint16{
-			tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-			tls.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
-			tls.TLS_RSA_WITH_AES_256_GCM_SHA384,
-			tls.TLS_RSA_WITH_AES_256_CBC_SHA,
-		},
-	}
 
 	//fmt.Println(endPoint)
 	server := &http.Server{
-		// Addr: endPoint,
-
+		Addr:           endPoint,
 		Handler:        routersInit,
 		ReadTimeout:    readTimeout,
 		WriteTimeout:   writeTimeout,
 		MaxHeaderBytes: maxHeaderBytes,
-		TLSConfig:      cfg,
-		TLSNextProto:   make(map[string]func(*http.Server, *tls.Conn, http.Handler), 0),
+		// 	TLSConfig:      cfg,
+		// 	TLSNextProto:   make(map[string]func(*http.Server, *tls.Conn, http.Handler), 0),
 	}
 
 	//server.ListenAndServe()
@@ -109,15 +94,4 @@ func main() {
 	//if err != nil {
 	//	log.Printf("Server err: %v", err)
 	//}
-}
-
-func redirect(w http.ResponseWriter, req *http.Request) {
-	// remove/add not default ports from req.Host
-	target := "https://" + req.Host + req.URL.Path
-	if len(req.URL.RawQuery) > 0 {
-		target += "?" + req.URL.RawQuery
-	}
-	log.Printf("redirect to: %s", target)
-	http.Redirect(w, req, target,
-		http.StatusTemporaryRedirect)
 }
