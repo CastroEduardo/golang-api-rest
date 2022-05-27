@@ -206,7 +206,7 @@ func saveSessionUser(remember bool, user authinterfaces.User) sendModel {
 	resp["user"] = claim.User
 	resp["privileges"] = claim.UserPrivileges
 
-	fmt.Println(resp["user"])
+	//fmt.Println(resp["user"])
 	//json.Marshal(claim.Company)
 	//fmt.Println(string(jsonCompany))
 
@@ -262,8 +262,6 @@ func PostClaimUser(c *gin.Context) {
 	dataModel["company"] = dataClaim.Company
 	dataModel["privilege"] = dataClaim.UserPrivileges
 	dataModel["rol"] = dataClaim.RolUser
-
-	fmt.Println(dataClaim)
 
 	sendData.Success = true
 	sendData.Msg = "Claim Success .."

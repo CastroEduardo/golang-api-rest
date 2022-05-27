@@ -48,7 +48,7 @@ func main() {
 	routersInit := routers.InitRouter()
 	readTimeout := setting.ServerSetting.ReadTimeout
 	writeTimeout := setting.ServerSetting.WriteTimeout
-	endPoint := fmt.Sprintf("localhost:%d", setting.ServerSetting.HttpPort)
+	endPoint := fmt.Sprintf("%s:%d", setting.ServerSetting.Host, setting.ServerSetting.HttpPort)
 	maxHeaderBytes := 1 << 20
 
 	//fmt.Println(endPoint)
@@ -65,7 +65,7 @@ func main() {
 	//server.ListenAndServe()
 	//finally we Listen for requests and serve them up on a specific port
 
-	server.ListenAndServeTLS("trtest+2.pem", "trtest+2-key.pem")
+	server.ListenAndServeTLS("192.168.0.101+3.pem", "192.168.0.101+3-key.pem")
 
 	//server.ListenAndServe()
 	// srv := &http.Server{
