@@ -59,7 +59,7 @@ type User struct {
 	LastLogin       time.Time `json:"lastLogin" bson:"lastlogin"`
 	DefaultPathHome string    `json:"defaultPathHome" bson:"defaultpathhome"`
 	DateAdd         time.Time `json:"dateAdd" bson:"dateadd"`
-	ToursInit       bool      `json:"toursinit" bson:"toursinit"`
+	ToursInit       bool      `json:"toursInit" bson:"toursinit"`
 }
 
 type UserPrivileges struct {
