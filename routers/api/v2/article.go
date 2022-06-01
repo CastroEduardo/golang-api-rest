@@ -25,7 +25,7 @@ var client = http.Client{}
 
 // @Summary Get a single article
 // @Produce  json
-// @Tags v2 Articles
+// @Tags Api-v2
 // @Security bearerAuth
 // @Param id path int true "ID"
 // @Success 200 {object} app.Response

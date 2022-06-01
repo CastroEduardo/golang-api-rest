@@ -59,13 +59,13 @@ func main() {
 		WriteTimeout:   writeTimeout,
 		MaxHeaderBytes: maxHeaderBytes,
 		// 	TLSConfig:      cfg,
-		// 	TLSNextProto:   make(map[string]func(*http.Server, *tls.Conn, http.Handler), 0),
+		// 	TLSNextProto:  make(map[string]func(*http.Server, *tls.Conn, http.Handler), 0),
 	}
 
 	//server.ListenAndServe()
 	//finally we Listen for requests and serve them up on a specific port
 
-	server.ListenAndServeTLS("192.168.0.101+3.pem", "192.168.0.101+3-key.pem")
+	server.ListenAndServeTLS("trtest+2.pem", "trtest+2-key.pem")
 
 	//server.ListenAndServe()
 	// srv := &http.Server{

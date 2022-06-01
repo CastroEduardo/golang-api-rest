@@ -64,7 +64,25 @@ paths:
       - bearerAuth: []
       summary: Get a single article
       tags:
-      - v2 Articles
+      - Api-v2
+  /api/v2/userlistsys:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      security:
+      - bearerAuth: []
+      summary: Get list userssys 1
+      tags:
+      - Api-v2
   /auth:
     get:
       operationId: Authentication

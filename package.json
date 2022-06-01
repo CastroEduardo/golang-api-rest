@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "yarn build && env-cmd node ./dist/index.js",
+    "dev": "nodemon --exec go run main.go --signal SIGTERM"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}

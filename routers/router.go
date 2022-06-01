@@ -18,7 +18,6 @@ import (
 	"github.com/CastroEduardo/golang-api-rest/pkg/upload"
 	v1 "github.com/CastroEduardo/golang-api-rest/routers/api/v1"
 	v2 "github.com/CastroEduardo/golang-api-rest/routers/api/v2"
-	"github.com/unrolled/secure"
 )
 
 // InitRouter initialize routing information
@@ -55,9 +54,14 @@ func InitRouter() *gin.Engine {
 
 		src := upload.GetImageFullPath()
 		apiv2.StaticFS(conf.NameUrlPathFiles, http.Dir(src))
+		//test articles
 		apiv2.GET(conf.ArticlesParms_GET, v2.GetArticle)
 
+		//user sys ==> Controllers
+		apiv2.POST(conf.UserSysList_Post, v2.UserSysList)
+
 	}
+
 	// 	//获取标签列表
 	// 	apiv1.GET("/tags", v1.GetTags)
 	// 	//新建标签
@@ -95,23 +99,6 @@ func InitRouter() *gin.Engine {
 	//Enable port listening
 
 	return r
-}
-
-func LoadTls() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		middleware := secure.New(secure.Options{
-			SSLRedirect: true,
-			SSLHost:     "localhost:8001",
-		})
-		err := middleware.Process(c.Writer, c.Request)
-		if err != nil {
-			//If an error occurs, do not continue.
-			fmt.Println(err)
-			return
-		}
-		//Continue processing
-		c.Next()
-	}
 }
 
 func CORSMiddleware() gin.HandlerFunc {

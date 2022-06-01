@@ -21,4 +21,11 @@ mkcert trtest localhost 192.168.1.111 ::1
 go get -u github.com/swaggo/swag/cmd/swag
 
 
+//go watch
+go get github.com/cespare/reflex
+
+
+reflex -r '\.go$' -- sh -c "swag init & go run main.go"
+
+
 								 

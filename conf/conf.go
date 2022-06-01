@@ -16,4 +16,7 @@ const (
 
 	//urlUploadFiles
 	NameUrlPathFiles = "/uploads/images"
+
+	//userSys
+	UserSysList_Post = "/userlistsys"
 )

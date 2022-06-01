@@ -72,3 +72,14 @@ require (
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+require (
+	github.com/creack/pty v1.1.11 // indirect
+	github.com/fsnotify/fsnotify v1.5.1 // indirect
+	github.com/golang/snappy v0.0.1 // indirect
+	github.com/json-iterator/go v1.1.6 // indirect
+	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
+	github.com/mattn/go-isatty v0.0.8 // indirect
+	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/ogier/pflag v0.0.1 // indirect
+)
