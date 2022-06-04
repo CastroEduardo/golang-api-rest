@@ -50,15 +50,15 @@ func GetListFromIdCompany(idCompany string) []authinterfaces.User {
 		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
 		doc, _ := collection.Find(context.TODO(), bson.M{"public": 0, "idcompany": idCompany})
 		//doc.Decode(&hero)
-		var hero authinterfaces.User
+		var userData authinterfaces.User
 		for doc.Next(context.TODO()) {
 			// Declare a result BSON object
 			//var result bson.M
-			err := doc.Decode(&hero)
+			err := doc.Decode(&userData)
 			if err != nil {
-				fmt.Println(hero)
+				fmt.Println(userData)
 			}
-			dataSend = append(dataSend, hero)
+			dataSend = append(dataSend, userData)
 		}
 		//hide all password this no send to user
 		for i := range dataSend {

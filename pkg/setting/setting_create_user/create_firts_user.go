@@ -7,19 +7,23 @@ import (
 	"github.com/CastroEduardo/golang-api-rest/models/authinterfaces"
 	"github.com/CastroEduardo/golang-api-rest/pkg/util"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbcompany_service"
+	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbdepartamentuser_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbprivilege_rol_user_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbrol_user_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbusers_service"
 )
 
-var idCompany string = ""
+var idCompany string = "629aa1f72c2b0990fdde5631"
 var idRolUser string = ""
+var idDepartamentUserSys string = ""
 var idPrivilegeUser string = ""
 var idUser string = ""
 
 func Create_first_user() string {
 
-	idCompany = create_company()
+	// idCompany = create_company()
+	time.Sleep(1 * time.Second)
+	idDepartamentUserSys = create_departamentusersys()
 	time.Sleep(1 * time.Second)
 	idRolUser = create_rol_useradmin()
 	time.Sleep(1 * time.Second)
@@ -36,22 +40,37 @@ func Create_first_user() string {
 func create_company() string {
 
 	newCompany := authinterfaces.Company{
-		ID:          idCompany,
+
 		NameLong:    "Nombre Largo Empresa #1",
 		NameShort:   "Nombre Corto #1",
 		Address:     "Direccion #1 ",
 		Slogan:      "Slogan Company #1",
 		Phone:       "809-561-2512 / 809-245-5444",
 		Status:      1,
-		Image:       "logo1.png",
+		Image:       "logocompany.png",
 		Rnc:         "001-0215211-0",
 		Others:      "Otros Datos",
 		DateAdd:     time.Now(),
 		FolderFiles: "9882388812121212121212_3233-2311",
-		UrlFiles:    "https://localhost:30001",
+		UrlFiles:    "https://localhost:8000/api/v2/uploads/images",
 	}
 
 	result := dbcompany_service.Add(newCompany)
+
+	return result
+}
+
+func create_departamentusersys() string {
+
+	newData := authinterfaces.DepartamentUserSys{
+		Name:      "Departamento 2",
+		Status:    1,
+		Note:      "DEPARTAMENTO #2 X",
+		Date:      time.Now(),
+		IdCompany: idCompany,
+	}
+
+	result := dbdepartamentuser_service.Add(newData)
 
 	return result
 }
@@ -60,11 +79,12 @@ func create_rol_useradmin() string {
 
 	//user Rol-admin
 	newRolAdmin := authinterfaces.RolUser{
-		Name:      "Rol admin",
-		Status:    1,
-		Note:      "... warning --- >  Only Privilege Admin System",
-		Date:      time.Now(),
-		IdCompany: idCompany,
+		Name:          "Rol USUARIO",
+		Status:        1,
+		Note:          "... User ONLY",
+		Date:          time.Now(),
+		IdCompany:     idCompany,
+		IdDepartament: idDepartamentUserSys,
 	}
 	getId := dbrol_user_service.Add(newRolAdmin)
 
@@ -95,15 +115,6 @@ type UrlLiskBlack struct {
 
 func create_privileges_rol_useradmin() string {
 
-	//var de = &authinterfaces.UrlLiskBlack{}
-
-	// child.ID = "foo"
-	// read := authinterfaces.UrlLiskBlack{
-	// 	name: "asd",
-	// 	path: "",
-	// 	mode: 1,
-	// }
-
 	list1 := []authinterfaces.UrlLiskBlack{{
 		Path: "/home1",
 		Name: "/home",
@@ -123,7 +134,7 @@ func create_privileges_rol_useradmin() string {
 		IdCompany:    idCompany,
 		WebAccess:    true,
 		Config:       1,
-		TypeUser:     1,
+		TypeUser:     2,
 		UrlListblack: list1,
 	}
 
@@ -135,13 +146,13 @@ func create_privileges_rol_useradmin() string {
 func create_user() string {
 
 	newUser := authinterfaces.User{
-		NickName:        "usuario1",
-		Name:            "NOmbre2",
+		NickName:        "usuario2",
+		Name:            "Nombre usuario #2",
 		LastName:        "apellido2",
 		Contact:         "contact",
 		City:            "city",
 		Gender:          "male",
-		Email:           "castro2354@gmail.com",
+		Email:           "usuario2@gmail.com",
 		IdRol:           idRolUser,
 		IdCompany:       idCompany,
 		Status:          1,

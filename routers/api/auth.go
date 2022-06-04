@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/CastroEduardo/golang-api-rest/conf"
+	"github.com/CastroEduardo/golang-api-rest/models"
 	"github.com/CastroEduardo/golang-api-rest/models/authinterfaces"
 	"github.com/CastroEduardo/golang-api-rest/pkg/app"
 	"github.com/CastroEduardo/golang-api-rest/pkg/e"
@@ -237,7 +238,7 @@ func PostClaimUser(c *gin.Context) {
 	if auth == "" {
 		sendData.Success = false
 		sendData.Msg = "Token Failed..."
-		appG.Response(http.StatusOK, e.SUCCESS, sendData)
+		appG.Response(http.StatusOK, e.ERROR_AUTH, sendData)
 		return
 	}
 
@@ -246,7 +247,7 @@ func PostClaimUser(c *gin.Context) {
 	if token == auth {
 		sendData.Success = false
 		sendData.Msg = "Token Failed..."
-		appG.Response(http.StatusOK, e.SUCCESS, sendData)
+		appG.Response(http.StatusOK, e.ERROR_AUTH, sendData)
 		return
 	}
 
@@ -280,7 +281,7 @@ func Postlogout(c *gin.Context) {
 	if auth == "" {
 		sendData.Success = false
 		sendData.Msg = "Token Failed..."
-		appG.Response(http.StatusOK, e.SUCCESS, sendData)
+		appG.Response(http.StatusOK, e.ERROR_AUTH, sendData)
 		return
 	}
 	//fmt.Println("Here")
@@ -288,7 +289,7 @@ func Postlogout(c *gin.Context) {
 	if token == auth {
 		sendData.Success = false
 		sendData.Msg = "Token Failed..."
-		appG.Response(http.StatusOK, e.SUCCESS, sendData)
+		appG.Response(http.StatusOK, e.ERROR_AUTH, sendData)
 		return
 	}
 
@@ -321,13 +322,13 @@ func PostCheckStatusSession(c *gin.Context) {
 	auth := c.Request.Header.Get("Authorization")
 
 	if auth == "" {
-		appG.Response(http.StatusOK, e.SUCCESS, valid)
+		appG.Response(http.StatusOK, e.ERROR_AUTH, valid)
 		return
 	}
 
 	token := strings.TrimPrefix(auth, "Bearer ")
 	if token == auth {
-		appG.Response(http.StatusOK, e.SUCCESS, valid)
+		appG.Response(http.StatusOK, e.ERROR_AUTH, valid)
 		return
 	}
 
@@ -352,6 +353,65 @@ func PostCheckStatusSession(c *gin.Context) {
 
 }
 
+// @Summary Post Check Password User
+// @Produce  json
+// @Tags Auth
+// @Param username query string true "username"
+// @Param password query string true "password"
+//  //    @ID Authentication
+// @Security bearerAuth
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /auth/checkpassword [post]
+func PostCheckPasswordUser(c *gin.Context) {
+
+	appG := app.Gin{C: c}
+	var valid = false
+	if !CheckBearer(c) {
+		appG.Response(http.StatusNonAuthoritativeInfo, e.ERROR_AUTH, valid)
+
+		return
+	}
+
+	ipRequest = c.ClientIP()
+
+	jsonRequest := models.CheckPasswordUserSys{}
+	c.BindJSON(&jsonRequest) //get params from Body
+
+	username := jsonRequest.Username //c.PostForm("username")
+	password := jsonRequest.Password //c.Query("password") //c.PostForm("password")
+
+	userFind := dbusers_service.CheckUserPasswordForUser(username, password)
+	if userFind.NickName != "" {
+		valid = true
+	} else {
+		userFind = dbusers_service.CheckUserPasswordForEmail(username, password)
+		if userFind.NickName != "" {
+			valid = true
+		}
+	}
+
+	fmt.Println(userFind)
+	appG.Response(http.StatusOK, e.SUCCESS, valid)
+	return
+
+}
+
+func CheckBearer(c *gin.Context) bool {
+
+	auth := c.Request.Header.Get("Authorization")
+	if auth == "" {
+		//appG.Response(http.StatusOK, e.ERROR_AUTH, false)
+		return false
+	}
+	token := strings.TrimPrefix(auth, "Bearer ")
+	if token == auth {
+		//appG.Response(http.StatusOK, e.ERROR_AUTH, false)
+		return false
+	}
+	return true
+}
+
 // // @Summary Get Auth
 // // @Produce  json
 // // @Tags Auth
@@ -363,12 +423,3 @@ func PostCheckStatusSession(c *gin.Context) {
 // // @Failure 500 {object} app.Response
 // // @Router /auth/getimg
 // func Getimg(c *gin.Context) http.FileSystem {
-
-// 	//appG := app.Gin{C: c}
-// 	id := com.StrTo(c.Param("id")).MustInt()
-
-// 	fmt.Println(id)
-
-// 	//userFailured(appG, username)
-// 	return http.Dir(upload.GetImageFullPath())
-// }

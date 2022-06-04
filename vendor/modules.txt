@@ -4,14 +4,6 @@ github.com/360EntSecGroup-Skylar/excelize
 # github.com/KyleBanks/depth v1.2.1
 ## explicit
 github.com/KyleBanks/depth
-# github.com/PuerkitoBio/purell v1.1.1
-## explicit
-# github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578
-## explicit
-# github.com/agiledragon/gomonkey/v2 v2.3.1
-## explicit; go 1.14
-# github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
-## explicit
 # github.com/astaxie/beego v1.9.3-0.20171218111859-f16688817aa4
 ## explicit
 github.com/astaxie/beego/validation
@@ -20,20 +12,12 @@ github.com/astaxie/beego/validation
 github.com/boombuler/barcode
 github.com/boombuler/barcode/qr
 github.com/boombuler/barcode/utils
-# github.com/cpuguy83/go-md2man/v2 v2.0.2
-## explicit; go 1.11
-# github.com/creack/pty v1.1.11
-## explicit; go 1.13
 # github.com/denisenkom/go-mssqldb v0.0.0-20190920000552-128d9f4ae1cd
 ## explicit; go 1.11
 # github.com/dgrijalva/jwt-go v3.2.0+incompatible
 ## explicit
 github.com/dgrijalva/jwt-go
 # github.com/erikstmartin/go-testdb v0.0.0-20160219214506-8d10e4a1bae5
-## explicit
-# github.com/fsnotify/fsnotify v1.5.1
-## explicit; go 1.13
-# github.com/ghodss/yaml v1.0.0
 ## explicit
 # github.com/gin-contrib/sse v0.1.0
 ## explicit; go 1.12
@@ -66,8 +50,6 @@ github.com/go-sql-driver/mysql
 # github.com/go-stack/stack v1.8.1
 ## explicit; go 1.17
 github.com/go-stack/stack
-# github.com/go-swagger/go-swagger v0.29.0
-## explicit; go 1.17
 # github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 ## explicit
 github.com/golang/freetype
@@ -98,8 +80,6 @@ github.com/josharian/intern
 # github.com/json-iterator/go v1.1.6
 ## explicit
 github.com/json-iterator/go
-# github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51
-## explicit
 # github.com/klauspost/compress v1.13.6
 ## explicit; go 1.15
 github.com/klauspost/compress
@@ -128,16 +108,10 @@ github.com/modern-go/concurrent
 github.com/modern-go/reflect2
 # github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826
 ## explicit
-# github.com/ogier/pflag v0.0.1
-## explicit
-# github.com/otiai10/copy v1.7.0
-## explicit; go 1.14
 # github.com/pkg/errors v0.9.1
 ## explicit
 github.com/pkg/errors
-# github.com/russross/blackfriday/v2 v2.1.0
-## explicit
-# github.com/shurcooL/sanitized_anchor_name v1.0.0
+# github.com/smartystreets/goconvey v1.6.4
 ## explicit
 # github.com/swaggo/gin-swagger v1.2.0
 ## explicit
@@ -155,10 +129,6 @@ github.com/ugorji/go/codec
 # github.com/unknwon/com v1.0.1
 ## explicit
 github.com/unknwon/com
-# github.com/unrolled/secure v1.10.0
-## explicit; go 1.13
-# github.com/urfave/cli/v2 v2.6.0
-## explicit; go 1.18
 # github.com/xdg-go/pbkdf2 v1.0.0
 ## explicit; go 1.9
 github.com/xdg-go/pbkdf2
@@ -273,6 +243,10 @@ google.golang.org/protobuf/types/descriptorpb
 # gopkg.in/go-playground/validator.v8 v8.18.2
 ## explicit
 gopkg.in/go-playground/validator.v8
+# gopkg.in/ini.v1 v1.66.3
+## explicit
 # gopkg.in/yaml.v2 v2.4.0
 ## explicit; go 1.15
 gopkg.in/yaml.v2
+# gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+## explicit

@@ -8,6 +8,11 @@ type Auth struct {
 	Password string `json:"password"`
 }
 
+type CheckPasswordUserSys struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 // CheckAuth checks if authentication information exists
 func CheckAuth(username, password string) (bool, error) {
 	var auth Auth

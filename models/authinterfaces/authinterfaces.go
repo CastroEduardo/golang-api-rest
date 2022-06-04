@@ -72,19 +72,29 @@ type UserPrivileges struct {
 	UrlListblack []UrlLiskBlack `json:"urlListBlack" bson:"urllistblack"`
 }
 
+type UrlLiskBlack struct {
+	Path string
+	Name string
+	Mode int
+}
+
 type RolUser struct {
+	ID            string    `json:"id,omitempty" bson:"_id,omitempty"`
+	Name          string    `json:"name" bson:"name"`
+	Status        int       `json:"status" bson:"status"`
+	Note          string    `json:"note" bson:"note"`
+	Date          time.Time `json:"date" bson:"date"`
+	IdDepartament string    `json:"idDepartament"  bson:"iddepartament"`
+	IdCompany     string    `json:"idCompany"  bson:"idcompany"`
+}
+
+type DepartamentUserSys struct {
 	ID        string    `json:"id,omitempty" bson:"_id,omitempty"`
 	Name      string    `json:"name" bson:"name"`
 	Status    int       `json:"status" bson:"status"`
 	Note      string    `json:"note" bson:"note"`
 	Date      time.Time `json:"date" bson:"date"`
 	IdCompany string    `json:"idCompany"  bson:"idcompany"`
-}
-
-type UrlLiskBlack struct {
-	Path string
-	Name string
-	Mode int
 }
 
 type SessionUser struct {

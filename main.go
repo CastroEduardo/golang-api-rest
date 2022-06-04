@@ -34,11 +34,11 @@ func init() {
 }
 
 // @title Golang Gin API
-// @version 1.0
-// @description Sample of WebApiRest
-// @termsOfService https://github.com/CastroEduardo/golang-api-rest
+// @version 2.0
+// @description Sample of WebApiRest_Golang
+// @termsOfService https://github1.com/CastroEduardo/golang-api-rest
 // @license.name MIT
-// @license.url https://github.com/CastroEduardo/golang-api-rest/blob/master/LICENSE
+// @license.url https://github1.com/CastroEduardo/golang-api-rest/blob/master/LICENSE
 // @securityDefinitions.apikey bearerAuth
 // @in header
 // @name Authorization

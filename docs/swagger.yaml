@@ -9,13 +9,13 @@ definitions:
     type: object
 info:
   contact: {}
-  description: Sample of WebApiRest
+  description: Sample of WebApiRest_Golang
   license:
     name: MIT
-    url: https://github.com/CastroEduardo/golang-api-rest/blob/master/LICENSE
-  termsOfService: https://github.com/CastroEduardo/golang-api-rest
+    url: https://github1.com/CastroEduardo/golang-api-rest/blob/master/LICENSE
+  termsOfService: https://github1.com/CastroEduardo/golang-api-rest
   title: Golang Gin API
-  version: "1.0"
+  version: "2.0"
 paths:
   /api/v1/articles/{id}:
     get:
@@ -41,6 +41,30 @@ paths:
       summary: Get a single article
       tags:
       - v1 Articles
+  /api/v2/addusersys:
+    post:
+      parameters:
+      - description: modelUser
+        in: query
+        name: modelUser
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      security:
+      - bearerAuth: []
+      summary: Add user to System
+      tags:
+      - Api-v2
   /api/v2/articles/{id}:
     get:
       parameters:
@@ -65,8 +89,24 @@ paths:
       summary: Get a single article
       tags:
       - Api-v2
-  /api/v2/userlistsys:
+  /api/v2/manageDepartament:
     post:
+      parameters:
+      - description: typeOperation
+        in: query
+        name: typeOperation
+        required: true
+        type: string
+      - description: idParam
+        in: query
+        name: idParam
+        required: true
+        type: string
+      - description: modelJson
+        in: query
+        name: modelJson
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -80,7 +120,31 @@ paths:
             $ref: '#/definitions/app.Response'
       security:
       - bearerAuth: []
-      summary: Get list userssys 1
+      summary: Manage Departament Sys
+      tags:
+      - Api-v2
+  /api/v2/userlistsys:
+    post:
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      security:
+      - bearerAuth: []
+      summary: Get list userSys
       tags:
       - Api-v2
   /auth:
@@ -146,6 +210,35 @@ paths:
           schema:
             $ref: '#/definitions/app.Response'
       summary: Post Auth
+      tags:
+      - Auth
+  /auth/checkpassword:
+    post:
+      parameters:
+      - description: username
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: password
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      security:
+      - bearerAuth: []
+      summary: Post Check Password User
       tags:
       - Auth
   /auth/checkstatustoken:

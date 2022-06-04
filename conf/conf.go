@@ -18,5 +18,9 @@ const (
 	NameUrlPathFiles = "/uploads/images"
 
 	//userSys
+	AddUserSys_Post  = "/addusersys"
 	UserSysList_Post = "/userlistsys"
+
+	//rol_privileges_departament
+	AddDepartament = "/manageDepartament"
 )

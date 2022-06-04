@@ -10,11 +10,11 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "https://github.com/CastroEduardo/golang-api-rest",
+        "termsOfService": "https://github1.com/CastroEduardo/golang-api-rest",
         "contact": {},
         "license": {
             "name": "MIT",
-            "url": "https://github.com/CastroEduardo/golang-api-rest/blob/master/LICENSE"
+            "url": "https://github1.com/CastroEduardo/golang-api-rest/blob/master/LICENSE"
         },
         "version": "{{.Version}}"
     },
@@ -41,6 +41,45 @@ const docTemplate = `{
                         "description": "ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/addusersys": {
+            "post": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Api-v2"
+                ],
+                "summary": "Add user to System",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "modelUser",
+                        "name": "modelUser",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -99,6 +138,59 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v2/manageDepartament": {
+            "post": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Api-v2"
+                ],
+                "summary": "Manage Departament Sys",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "typeOperation",
+                        "name": "typeOperation",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "idParam",
+                        "name": "idParam",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "modelJson",
+                        "name": "modelJson",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v2/userlistsys": {
             "post": {
                 "security": [
@@ -112,7 +204,16 @@ const docTemplate = `{
                 "tags": [
                     "Api-v2"
                 ],
-                "summary": "Get list userssys 1",
+                "summary": "Get list userSys",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -205,6 +306,52 @@ const docTemplate = `{
                         "type": "boolean",
                         "description": "remember",
                         "name": "remember",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/checkpassword": {
+            "post": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Post Check Password User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "username",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
                         "in": "query",
                         "required": true
                     }
@@ -341,12 +488,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.0",
+	Version:          "2.0",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Golang Gin API",
-	Description:      "Sample of WebApiRest",
+	Description:      "Sample of WebApiRest_Golang",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

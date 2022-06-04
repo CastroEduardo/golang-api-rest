@@ -18,6 +18,8 @@ import (
 	"github.com/CastroEduardo/golang-api-rest/pkg/upload"
 	v1 "github.com/CastroEduardo/golang-api-rest/routers/api/v1"
 	v2 "github.com/CastroEduardo/golang-api-rest/routers/api/v2"
+	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/rol_privilege_departament_sys_controller"
+	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/users_sys_controllers"
 )
 
 // InitRouter initialize routing information
@@ -37,7 +39,7 @@ func InitRouter() *gin.Engine {
 	r.GET("/auth", api.GetAuth)
 	r.POST("/auth/claim-user", api.PostClaimUser)
 	r.POST("/auth/logout", api.Postlogout)
-
+	r.POST("/auth/checkpassword", api.PostCheckPasswordUser)
 	r.POST("/auth/checkstatustoken", api.PostCheckStatusSession)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
@@ -58,7 +60,11 @@ func InitRouter() *gin.Engine {
 		apiv2.GET(conf.ArticlesParms_GET, v2.GetArticle)
 
 		//user sys ==> Controllers
-		apiv2.POST(conf.UserSysList_Post, v2.UserSysList)
+		apiv2.POST(conf.UserSysList_Post, users_sys_controllers.UserSysList)
+		apiv2.POST(conf.AddUserSys_Post, users_sys_controllers.AddUserSys)
+
+		//controllers ROl- PRIVILEGES- DEPARTAMENTS
+		apiv2.POST(conf.AddDepartament, rol_privilege_departament_sys_controller.ManageDepartamentSys)
 
 	}
 
