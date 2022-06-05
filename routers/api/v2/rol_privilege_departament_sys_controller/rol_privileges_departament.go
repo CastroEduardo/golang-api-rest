@@ -39,7 +39,10 @@ func ManageDepartamentSys(c *gin.Context) {
 	ipRequest = c.ClientIP()
 	//Request Body
 	paramRequest := RequestParams{}
+
 	c.BindJSON(&paramRequest)
+
+	fmt.Println(paramRequest)
 
 	auth := c.Request.Header.Get("Authorization")
 	token := strings.TrimPrefix(auth, "Bearer ")
@@ -53,7 +56,7 @@ func ManageDepartamentSys(c *gin.Context) {
 			u, _ := json.Marshal(result)
 			appG.Response(http.StatusOK, e.SUCCESS, string(u))
 
-			fmt.Println(string(u))
+			//fmt.Println(string(u))
 			return
 		} else {
 			result := dbdepartamentuser_service.FindToId(paramRequest.IdParam)
@@ -87,12 +90,15 @@ func ManageDepartamentSys(c *gin.Context) {
 			return
 		}
 
+		//newStr := strings.Replace(paramRequest.ModelData, `"`, `'`, -1)
 		err := json.Unmarshal([]byte(paramRequest.ModelData), &paramRequest)
 		if err != nil {
+			fmt.Println("pass")
 			appG.Response(http.StatusInternalServerError, e.ERROR, "ERROR JSON MODEL TO UPDATE")
 			return
 		}
 
+		//fmt.Println(paramRequest.ModelData)
 		oldDepart := dbdepartamentuser_service.FindToId(paramRequest.IdParam)
 		if oldDepart.IdCompany != idCompany.Company.ID {
 			appG.Response(http.StatusInternalServerError, e.ERROR, "FAILD DEPARTAMENT")
@@ -136,7 +142,7 @@ func ManageDepartamentSys(c *gin.Context) {
 type RequestParams struct {
 	IdParam       string `json:"idParam"`
 	TypeOperation string `json:"typeOperation"`
-	ModelData     string `json:"modelJson"`
+	ModelData     string `json:"modelData"`
 }
 
 // @Summary Get list userSys
