@@ -18,7 +18,7 @@ import (
 	"github.com/CastroEduardo/golang-api-rest/pkg/upload"
 	v1 "github.com/CastroEduardo/golang-api-rest/routers/api/v1"
 	v2 "github.com/CastroEduardo/golang-api-rest/routers/api/v2"
-	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/rol_privilege_departament_sys_controller"
+	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/rol_privilege_department_sys_controller"
 	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/users_sys_controllers"
 )
 
@@ -60,11 +60,13 @@ func InitRouter() *gin.Engine {
 		apiv2.GET(conf.ArticlesParms_GET, v2.GetArticle)
 
 		//user sys ==> Controllers
-		apiv2.POST(conf.UserSysList_Post, users_sys_controllers.UserSysList)
-		apiv2.POST(conf.AddUserSys_Post, users_sys_controllers.AddUserSys)
+		//apiv2.POST(conf.UserSysList_Post, users_sys_controllers.UserSysList)
+		apiv2.POST(conf.ManagedUserSys, users_sys_controllers.ManagedUserSys)
 
 		//controllers ROl- PRIVILEGES- DEPARTAMENTS
-		apiv2.POST(conf.AddDepartament, rol_privilege_departament_sys_controller.ManageDepartamentSys)
+		apiv2.POST(conf.ControllerDepartamentUserSys, rol_privilege_department_sys_controller.ManageDepartamentSys)
+		apiv2.POST(conf.ControllerRolUserSys, rol_privilege_department_sys_controller.ManageRolSys)
+		apiv2.POST(conf.ControllerPrivilegeUserSys, rol_privilege_department_sys_controller.ManagePrivilegeSys)
 
 	}
 

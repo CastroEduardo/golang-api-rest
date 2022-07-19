@@ -12,6 +12,9 @@ github.com/astaxie/beego/validation
 github.com/boombuler/barcode
 github.com/boombuler/barcode/qr
 github.com/boombuler/barcode/utils
+# github.com/cloudmailin/cloudmailin-go v0.2.0
+## explicit; go 1.14
+github.com/cloudmailin/cloudmailin-go
 # github.com/denisenkom/go-mssqldb v0.0.0-20190920000552-128d9f4ae1cd
 ## explicit; go 1.11
 # github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -65,6 +68,8 @@ github.com/golang/snappy
 ## explicit
 github.com/gomodule/redigo/internal
 github.com/gomodule/redigo/redis
+# github.com/google/uuid v1.3.0
+## explicit
 # github.com/jinzhu/gorm v0.0.0-20180213101209-6e1387b44c64
 ## explicit
 github.com/jinzhu/gorm
@@ -111,6 +116,9 @@ github.com/modern-go/reflect2
 # github.com/pkg/errors v0.9.1
 ## explicit
 github.com/pkg/errors
+# github.com/rs/xid v1.4.0
+## explicit; go 1.12
+github.com/rs/xid
 # github.com/smartystreets/goconvey v1.6.4
 ## explicit
 # github.com/swaggo/gin-swagger v1.2.0
@@ -240,10 +248,14 @@ google.golang.org/protobuf/reflect/protoregistry
 google.golang.org/protobuf/runtime/protoiface
 google.golang.org/protobuf/runtime/protoimpl
 google.golang.org/protobuf/types/descriptorpb
+# gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc
+## explicit
 # gopkg.in/go-playground/validator.v8 v8.18.2
 ## explicit
 gopkg.in/go-playground/validator.v8
 # gopkg.in/ini.v1 v1.66.3
+## explicit
+# gopkg.in/mail.v2 v2.3.1
 ## explicit
 # gopkg.in/yaml.v2 v2.4.0
 ## explicit; go 1.15

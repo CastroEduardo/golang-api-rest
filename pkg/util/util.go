@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
+	"github.com/rs/xid"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -112,4 +113,12 @@ func Decode(s string) []byte {
 		panic(err)
 	}
 	return data
+}
+
+func GetUniqueId() string {
+	//time.Sleep(1 * time.Second)
+	guid := xid.New()
+
+	return guid.String()
+
 }

@@ -17,13 +17,13 @@ type IUserLogin struct {
 }
 
 type ClaimSession struct {
-	User           User           `json:"user" bson:"user"`
-	Company        Company        `json:"company" bson:"company"`
-	UserPrivileges UserPrivileges `json:"userPrivileges" bson:"userPrivileges"`
-	RolUser        RolUser        `json:"rolUser" bson:"rolUser"`
+	User_sys           User_sys           `json:"user_sys" bson:"user_sys"`
+	Company_sys        Company_sys        `json:"company_sys" bson:"company_sys"`
+	UserPrivileges_sys UserPrivileges_sys `json:"userPrivileges_sys" bson:"user_privilege_sys"`
+	RolUser_sys        RolUser_sys        `json:"rolUser_sys" bson:"rol_user_sys"`
+	DeptUser_sys       DptsUser_sys       `json:"deptUser_sys" bson:"dept_user_sys"`
 }
-
-type Company struct {
+type Company_sys struct {
 	ID          string    `json:"id,omitempty" bson:"_id,omitempty"`
 	NameLong    string    `json:"nameLong" bson:"namelong"`
 	NameShort   string    `json:"nameShort" bson:"nameshort"`
@@ -39,7 +39,7 @@ type Company struct {
 	UrlFiles    string    `json:"urlFiles" bson:"urlfiles"`
 }
 
-type User struct {
+type User_sys struct {
 	ID              string    `json:"id,omitempty" bson:"_id,omitempty"`
 	NickName        string    `json:"nickName" bson:"nickname"`
 	Name            string    `json:"name" bson:"name"`
@@ -48,7 +48,7 @@ type User struct {
 	City            string    `json:"city" bson:"city"`
 	Gender          string    `json:"gender" bson:"gender"`
 	Email           string    `json:"email" bson:"email"`
-	IdRol           string    `json:"idRol" bson:"idrol"`
+	IdDept          string    `json:"IdDept" bson:"iddept"`
 	IdCompany       string    `json:"idCompany"  bson:"idcompany"`
 	Status          int       `json:"status" bson:"status"`
 	Image           string    `json:"image" bson:"image"`
@@ -62,33 +62,69 @@ type User struct {
 	ToursInit       bool      `json:"toursInit" bson:"toursinit"`
 }
 
-type UserPrivileges struct {
-	ID           string         `json:"id,omitempty" bson:"_id,omitempty"`
-	IdRol        string         `json:"idRol" bson:"idrol"`
-	IdCompany    string         `json:"idCompany"  bson:"idcompany"`
-	WebAccess    bool           `json:"webAccess" bson:"webaccess"`
-	Config       int            `json:"config" bson:"config"`
-	TypeUser     int            `json:"typeUser" bson:"typeUser"`
-	UrlListblack []UrlLiskBlack `json:"urlListBlack" bson:"urllistblack"`
-}
-
-type UrlLiskBlack struct {
-	Path string
-	Name string
-	Mode int
-}
-
-type RolUser struct {
+type UserPrivileges_sys struct {
 	ID            string    `json:"id,omitempty" bson:"_id,omitempty"`
 	Name          string    `json:"name" bson:"name"`
 	Status        int       `json:"status" bson:"status"`
-	Note          string    `json:"note" bson:"note"`
-	Date          time.Time `json:"date" bson:"date"`
-	IdDepartament string    `json:"idDepartament"  bson:"iddepartament"`
 	IdCompany     string    `json:"idCompany"  bson:"idcompany"`
+	DefaultPage   int       `json:"defaultPage" bson:"default_page"`
+	ListPages     []string  `json:"listPages" bson:"list_pages"`
+	ListFunctions []string  `json:"listFunctions" bson:"list_functions"`
+	DateAdd       time.Time `json:"dateAdd" bson:"dateadd"`
+	Note          string    `json:"note"  bson:"note"`
 }
 
-type DepartamentUserSys struct {
+// type UrlLiskBlack struct {
+// 	Path string
+// 	Name string
+// 	Mode int
+// }
+
+type RolUser_sys struct {
+	ID          string    `json:"id,omitempty" bson:"_id,omitempty"`
+	Name        string    `json:"name" bson:"name"`
+	Status      int       `json:"status" bson:"status"`
+	Note        string    `json:"note" bson:"note"`
+	Date        time.Time `json:"date" bson:"date"`
+	IdPrivilege string    `json:"idPrivilege"  bson:"idprivilege"`
+	IdCompany   string    `json:"idCompany"  bson:"idcompany"`
+}
+
+//####DEPARTMENTS USER
+type DptsUser_sys struct {
+	ID        string         `json:"id,omitempty" bson:"_id,omitempty"`
+	Title     string         `json:"title" bson:"title"`
+	Key       string         `json:"key" bson:"key"`
+	OrderNo   int            `json:"orderNo" bson:"orderno"`
+	Status    int            `json:"status" bson:"status"`
+	Note      string         `json:"note" bson:"note"`
+	IdCompany string         `json:"idCompany"  bson:"idcompany"`
+	IdRole    string         `json:"idRole"  bson:"idrole"`
+	DateAdd   time.Time      `json:"dateAdd" bson:"dateadd"`
+	Children  []DptsUser_sys `json:"children" bson:"children"`
+}
+
+//####Tree options PRIVILEGES
+type TreePrivileges_sys struct {
+	ID        string               `json:"id,omitempty" bson:"_id,omitempty"`
+	Name      string               `json:"name" bson:"name"`
+	Key       string               `json:"key" bson:"key"`
+	Status    int                  `json:"status" bson:"status"`
+	Note      string               `json:"note" bson:"note"`
+	IdCompany string               `json:"idCompany"  bson:"idcompany"`
+	DateAdd   time.Time            `json:"dateAdd" bson:"dateadd"`
+	Children  []TreePrivileges_sys `json:"children" bson:"children"`
+}
+
+// type DtChildrenDptsUser_sys struct {
+// 	ID    string `json:"id,omitempty" bson:"_id,omitempty"`
+// 	Title string `json:"title" bson:"title"`
+// 	Key   string `json:"key" bson:"key"`
+// 	Note  string `json:"note" bson:"note"`
+// 	// Children
+// }
+
+type DepartmentUserSysOld struct {
 	ID        string    `json:"id,omitempty" bson:"_id,omitempty"`
 	Name      string    `json:"name" bson:"name"`
 	Status    int       `json:"status" bson:"status"`
@@ -96,6 +132,8 @@ type DepartamentUserSys struct {
 	Date      time.Time `json:"date" bson:"date"`
 	IdCompany string    `json:"idCompany"  bson:"idcompany"`
 }
+
+//########END DEPARTMENTS
 
 type SessionUser struct {
 	ID             string    `json:"id,omitempty" bson:"_id,omitempty"`

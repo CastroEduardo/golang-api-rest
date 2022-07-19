@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -12,12 +11,12 @@ import (
 	"github.com/CastroEduardo/golang-api-rest/models/authinterfaces"
 	"github.com/CastroEduardo/golang-api-rest/pkg/app"
 	"github.com/CastroEduardo/golang-api-rest/pkg/e"
-	"github.com/CastroEduardo/golang-api-rest/pkg/logs_category"
 	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
 	"github.com/CastroEduardo/golang-api-rest/pkg/util"
+
+	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dblogs_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbsession_user_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbusers_service"
-	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/logs_service"
 	"github.com/astaxie/beego/validation"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -85,6 +84,7 @@ func PostAuth(c *gin.Context) {
 
 	if checkUser.NickName != "" {
 		result := saveSessionUser(remember, checkUser)
+		//fmt.Println(result)
 		appG.Response(http.StatusOK, e.SUCCESS, result)
 		return
 	}
@@ -143,18 +143,21 @@ func GetAuth(c *gin.Context) {
 }
 
 func userFailured(appG app.Gin, username string) {
-	logs_service.Add(logs_category.USERFAILLOGIN, "TRY login FAILED FROM USER "+username, ipRequest)
+
+	dblogs_service.Add(1, "", "", "")
+
+	dblogs_service.Add(conf.LOGIN_FAILE, "TRY login FAILED FROM USER "+username, "", ipRequest)
 
 	returnModel := sendModel{}
 	returnModel.Success = false
 	returnModel.Token = ""
 	returnModel.Msg = conf.UserFailed
 
-	fmt.Println(returnModel)
+	//fmt.Println(returnModel)
 	appG.Response(http.StatusOK, e.SUCCESS, returnModel)
 }
 
-func saveSessionUser(remember bool, user authinterfaces.User) sendModel {
+func saveSessionUser(remember bool, user authinterfaces.User_sys) sendModel {
 
 	var returnModel sendModel
 
@@ -163,7 +166,7 @@ func saveSessionUser(remember bool, user authinterfaces.User) sendModel {
 		returnModel.Token = ""
 		returnModel.Msg = conf.UserDisabled
 
-		logs_service.Add(logs_category.USERFAILLOGIN, "USER TRY LOGIN AND USER DISABLED "+user.NickName, ipRequest)
+		dblogs_service.Add(conf.LOGIN_FAILE, "USER TRY LOGIN AND USER DISABLED "+user.NickName, "", ipRequest)
 
 		return returnModel
 	}
@@ -196,16 +199,14 @@ func saveSessionUser(remember bool, user authinterfaces.User) sendModel {
 	}
 	dbsession_user_service.Add(newSession)
 
-	logs_service.Add(logs_category.USERSLOGINSUCCESS, "USER LOGIN SUCCESS.. "+user.NickName, ipRequest)
-
-	//fmt.Println(idSession)
+	dblogs_service.Add(conf.LOGIN_SUCCESS, "USER LOGIN SUCCESS.. "+user.NickName, "", ipRequest)
 
 	claim := dbsession_user_service.GetClaimForToken(tokenGet)
 
 	resp := make(map[string]interface{})
-	resp["company"] = claim.Company
-	resp["user"] = claim.User
-	resp["privileges"] = claim.UserPrivileges
+	resp["company"] = claim.Company_sys
+	resp["user"] = claim.User_sys
+	resp["privileges"] = claim.UserPrivileges_sys
 
 	returnModel.Success = true
 	returnModel.Token = tokenGet
@@ -227,7 +228,6 @@ func PostClaimUser(c *gin.Context) {
 	appG := app.Gin{C: c}
 	ipRequest = c.ClientIP()
 	//valid := validation.Validation{}
-
 	sendData := sendClaim{}
 
 	// token := c.Request.Header.Get("Authorization")
@@ -254,10 +254,13 @@ func PostClaimUser(c *gin.Context) {
 	dataClaim := dbsession_user_service.GetClaimForToken(token)
 	dataModel := make(map[string]interface{})
 
-	dataModel["user"] = dataClaim.User
-	dataModel["company"] = dataClaim.Company
-	dataModel["privilege"] = dataClaim.UserPrivileges
-	dataModel["rol"] = dataClaim.RolUser
+	dataModel["company"] = dataClaim.Company_sys
+	dataModel["user"] = dataClaim.User_sys
+	dataModel["dept"] = dataClaim.DeptUser_sys
+	dataModel["privilege"] = dataClaim.UserPrivileges_sys
+	dataModel["rol"] = dataClaim.RolUser_sys
+
+	dblogs_service.Add(conf.LOGIN_USER_GETCLAIM, " GET_CLAIM SESSION "+dataClaim.User_sys.NickName, dataClaim.User_sys.ID, ipRequest)
 
 	appG.Response(http.StatusOK, e.SUCCESS, dataModel)
 }
@@ -274,7 +277,6 @@ func Postlogout(c *gin.Context) {
 
 	appG := app.Gin{C: c}
 	ipRequest = c.ClientIP()
-
 	sendData := sendClaim{}
 
 	auth := c.Request.Header.Get("Authorization")
@@ -302,6 +304,9 @@ func Postlogout(c *gin.Context) {
 	if result {
 		logout = true
 	}
+
+	dblogs_service.Add(conf.LOGIN_USER_LOGOUT, "LOGOUT USER "+session.IdUser, session.IdUser, ipRequest)
+
 	appG.Response(http.StatusOK, e.SUCCESS, logout)
 }
 
@@ -347,6 +352,9 @@ func PostCheckStatusSession(c *gin.Context) {
 	if !activeToken.Active {
 		valid = false
 	}
+
+	dblogs_service.Add(conf.LOGIN_USER_CHECK_TOKEN, "CHECK TOKEN STATUS: "+strconv.FormatBool(valid), activeToken.IdUser, ipRequest)
+
 	//update lastTimeOnline
 	dbsession_user_service.UpdateOne(activeToken)
 	appG.Response(http.StatusOK, e.SUCCESS, valid)
@@ -391,9 +399,9 @@ func PostCheckPasswordUser(c *gin.Context) {
 		}
 	}
 
-	fmt.Println(userFind)
+	//fmt.Println(userFind)
 	appG.Response(http.StatusOK, e.SUCCESS, valid)
-	return
+	//return
 
 }
 

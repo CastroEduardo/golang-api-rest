@@ -8,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 
 	//github.com/CastroEduardo/golang-api-rest/models"
-
 	// "github.com/CastroEduardo/golang-api-rest/pkg/gredis"
 
 	"github.com/CastroEduardo/golang-api-rest/pkg/logging"
@@ -19,6 +18,7 @@ import (
 )
 
 func init() {
+
 	setting.Setup()
 	//models.Setup()
 	logging.Setup()
@@ -65,7 +65,7 @@ func main() {
 	//server.ListenAndServe()
 	//finally we Listen for requests and serve them up on a specific port
 
-	server.ListenAndServeTLS("trtest+2.pem", "trtest+2-key.pem")
+	server.ListenAndServeTLS("192.168.0.101+3.pem", "192.168.0.101+3-key.pem")
 
 	//server.ListenAndServe()
 	// srv := &http.Server{

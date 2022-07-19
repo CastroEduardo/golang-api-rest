@@ -18,6 +18,8 @@ require (
 	github.com/unknwon/com v1.0.1
 )
 
+require gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
+
 require (
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
@@ -62,11 +64,15 @@ require (
 )
 
 require (
+	github.com/cloudmailin/cloudmailin-go v0.2.0
 	github.com/golang/snappy v0.0.1 // indirect
+	github.com/google/uuid v1.3.0
 	github.com/json-iterator/go v1.1.6 // indirect
 	github.com/mattn/go-isatty v0.0.8 // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/rs/xid v1.4.0
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	gopkg.in/ini.v1 v1.66.3 // indirect
+	gopkg.in/mail.v2 v2.3.1
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )

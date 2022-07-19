@@ -2,7 +2,6 @@ package dbrol_user_service
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	// get an object type
@@ -15,7 +14,7 @@ import (
 )
 
 var ClientMongo *mongo.Client
-var nameCollection = "roles_users"
+var nameCollection = "roles_users_sys"
 
 //var client *mongo.Client
 var collection *mongo.Collection
@@ -29,7 +28,7 @@ func settingsCollections() {
 	}
 }
 
-func Add(Model authinterfaces.RolUser) string {
+func Add(Model authinterfaces.RolUser_sys) string {
 	settingsCollections()
 
 	if collection != nil {
@@ -47,21 +46,22 @@ func Add(Model authinterfaces.RolUser) string {
 	return ""
 }
 
-func GetListForIdCompany(idCompany string) []authinterfaces.RolUser {
+func GetListForIdCompany(idCompany string) []authinterfaces.RolUser_sys {
 	settingsCollections()
-	var list []authinterfaces.RolUser
+	var list []authinterfaces.RolUser_sys
 	if collection != nil {
 		//transform string _id to Object
 		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
 		doc, _ := collection.Find(context.TODO(), bson.M{"idcompany": idCompany})
 		//doc.Decode(&hero)
-		var hero authinterfaces.RolUser
+		var hero authinterfaces.RolUser_sys
 		for doc.Next(context.TODO()) {
 			// Declare a result BSON object
 			//var result bson.M
 			err := doc.Decode(&hero)
 			if err != nil {
-				fmt.Println(hero)
+				log.Println(err)
+				//fmt.Println(hero)
 			}
 			list = append(list, hero)
 		}
@@ -70,21 +70,22 @@ func GetListForIdCompany(idCompany string) []authinterfaces.RolUser {
 	return list
 }
 
-func GetList() []authinterfaces.RolUser {
+func GetList() []authinterfaces.RolUser_sys {
 	settingsCollections()
-	var list []authinterfaces.RolUser
+	var list []authinterfaces.RolUser_sys
 	if collection != nil {
 		//transform string _id to Object
 		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
 		doc, _ := collection.Find(context.TODO(), bson.M{})
 		//doc.Decode(&hero)
-		var hero authinterfaces.RolUser
+		var hero authinterfaces.RolUser_sys
 		for doc.Next(context.TODO()) {
 			// Declare a result BSON object
 			//var result bson.M
 			err := doc.Decode(&hero)
 			if err != nil {
-				fmt.Println(hero)
+				log.Println(err)
+				//fmt.Println(hero)
 			}
 			list = append(list, hero)
 		}
@@ -93,12 +94,89 @@ func GetList() []authinterfaces.RolUser {
 	return list
 }
 
-func FindToIdRol(idRolUser string) authinterfaces.RolUser {
+func FindToIdRol(idRolUser string) authinterfaces.RolUser_sys {
 	settingsCollections()
-	var modelSend authinterfaces.RolUser
+	var modelSend authinterfaces.RolUser_sys
 	if collection != nil {
 		//transform string _id to Object
 		docID, _ := primitive.ObjectIDFromHex(idRolUser)
+		doc := collection.FindOne(context.TODO(), bson.M{"_id": docID})
+		doc.Decode(&modelSend)
+
+	}
+	return modelSend
+}
+
+func UpdateOne(model authinterfaces.RolUser_sys) bool {
+	settingsCollections()
+
+	//var modelSend authinterfaces.User
+	if collection != nil {
+
+		var id = model.ID
+		model.ID = ""
+		update2 := bson.M{
+			"$set": model,
+		}
+		// update := bson.M{"$set": bson.M{}}
+		docID, _ := primitive.ObjectIDFromHex(id)
+		_, err := collection.UpdateOne(context.TODO(), bson.M{"_id": docID}, update2)
+
+		if err != nil {
+			log.Fatalln("Error on inserting new departament", err)
+			return false
+		}
+
+		return true
+
+	}
+
+	return false
+}
+
+func Delete(id string) bool {
+	settingsCollections()
+
+	//var modelSend authinterfaces.User
+	if collection != nil {
+		//transform string _id to Object
+		docID, _ := primitive.ObjectIDFromHex(id)
+		deleteResult, err := collection.DeleteOne(context.TODO(), bson.M{"_id": docID})
+
+		if err != nil {
+			log.Fatalln("Error on inserting new Departament", err)
+			return false
+		}
+
+		if deleteResult.DeletedCount > 0 {
+			return true
+		}
+
+	}
+
+	return false
+}
+
+func GetListFromIdCompany(id string) []authinterfaces.RolUser_sys {
+	settingsCollections()
+	var list []authinterfaces.RolUser_sys
+	if collection != nil {
+		//transform string _id to Object
+		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
+		doc, _ := collection.Find(context.TODO(), bson.M{"idcompany": id})
+		doc.All(context.Background(), &list)
+		doc.Close(context.TODO())
+	}
+
+	return list
+}
+
+func FindToId(id string) authinterfaces.RolUser_sys {
+	settingsCollections()
+	var modelSend authinterfaces.RolUser_sys
+	if collection != nil {
+		//transform string _id to Object
+		docID, _ := primitive.ObjectIDFromHex(id)
 		doc := collection.FindOne(context.TODO(), bson.M{"_id": docID})
 		doc.Decode(&modelSend)
 

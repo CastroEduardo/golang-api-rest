@@ -1,8 +1,7 @@
-package logs_service
+package dblogs_service
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	// get an object type
@@ -17,7 +16,7 @@ import (
 )
 
 var ClientMongo *mongo.Client
-var nameCollection = "logs_system"
+var nameCollection = "logs_sys"
 
 //var client *mongo.Client
 var collection *mongo.Collection
@@ -31,15 +30,16 @@ func settingsCollections() {
 	}
 }
 
-func Add(level int, logSytem string, ipRequest string) string {
+func Add(level int, logSytem string, idAssociated string, ipRequest string) string {
 	settingsCollections()
 
 	newLog := interfaces_public.LogSystem{
-		Log:    logSytem,
-		Level:  level,
-		Status: 1,
-		Date:   time.Now(),
-		Ip:     ipRequest,
+		Log:          logSytem,
+		Level:        level,
+		IdAssociated: idAssociated,
+		Status:       1,
+		Date:         time.Now(),
+		Ip:           ipRequest,
 	}
 
 	if collection != nil {
@@ -64,17 +64,8 @@ func GetList() []interfaces_public.LogSystem {
 		//transform string _id to Object
 		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
 		doc, _ := collection.Find(context.TODO(), bson.M{})
-		//doc.Decode(&hero)
-		var hero interfaces_public.LogSystem
-		for doc.Next(context.TODO()) {
-			// Declare a result BSON object
-			//var result bson.M
-			err := doc.Decode(&hero)
-			if err != nil {
-				fmt.Println(hero)
-			}
-			list = append(list, hero)
-		}
+		doc.All(context.Background(), &list)
+		doc.Close(context.TODO())
 	}
 
 	return list

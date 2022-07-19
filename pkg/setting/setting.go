@@ -74,6 +74,14 @@ type Mongodb struct {
 
 var MongoDbSetting = &Mongodb{}
 
+type Email struct {
+	Host     string
+	User     string
+	Password string
+}
+
+var EmailSetting = &Email{}
+
 var cfg *ini.File
 
 // Setup initialize the configuration instance
@@ -89,6 +97,7 @@ func Setup() {
 	mapTo("database", DatabaseSetting)
 	mapTo("redis", RedisSetting)
 	mapTo("mongodb", MongoDbSetting)
+	mapTo("email", EmailSetting)
 
 	AppSetting.ImageMaxSize = AppSetting.ImageMaxSize * 1024 * 1024
 	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second

@@ -2,7 +2,6 @@ package dbcompany_service
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	// get an object type
@@ -19,7 +18,7 @@ import (
 )
 
 var ClientMongo *mongo.Client
-var nameCollection = "companys"
+var nameCollection = "companys_sys"
 
 //var client *mongo.Client
 var collection *mongo.Collection
@@ -28,7 +27,7 @@ func settingsCollections() bool {
 
 	var nameDb = setting.MongoDbSetting.Name
 	ClientMongo = mongo_db.ClientMongo
-	fmt.Println("==> " + nameDb)
+	//fmt.Println("==> " + nameDb)
 
 	if ClientMongo != nil {
 		//fmt.Println(os.Getenv("TOKEN_HASH")))
@@ -39,7 +38,7 @@ func settingsCollections() bool {
 	return false
 }
 
-func Add(Model authinterfaces.Company) string {
+func Add(Model authinterfaces.Company_sys) string {
 	result := settingsCollections()
 	if result {
 		if collection != nil {
@@ -58,9 +57,9 @@ func Add(Model authinterfaces.Company) string {
 
 }
 
-func FindToId(id string) authinterfaces.Company {
+func FindToId(id string) authinterfaces.Company_sys {
 	settingsCollections()
-	var modelSend authinterfaces.Company
+	var modelSend authinterfaces.Company_sys
 	if collection != nil {
 		//transform string _id to Object
 		docID, _ := primitive.ObjectIDFromHex(id)
@@ -71,24 +70,15 @@ func FindToId(id string) authinterfaces.Company {
 	return modelSend
 }
 
-func GetList() []authinterfaces.Company {
+func GetList() []authinterfaces.Company_sys {
 	settingsCollections()
-	var list []authinterfaces.Company
+	var list []authinterfaces.Company_sys
 	if collection != nil {
 		//transform string _id to Object
 		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
 		doc, _ := collection.Find(context.TODO(), bson.M{})
-		//doc.Decode(&hero)
-		var hero authinterfaces.Company
-		for doc.Next(context.TODO()) {
-			// Declare a result BSON object
-			//var result bson.M
-			err := doc.Decode(&hero)
-			if err != nil {
-				fmt.Println(hero)
-			}
-			list = append(list, hero)
-		}
+		doc.All(context.Background(), &list)
+		doc.Close(context.TODO())
 	}
 
 	return list

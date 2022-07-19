@@ -2,7 +2,6 @@ package dbusers_service
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/url"
 	"reflect"
@@ -24,7 +23,7 @@ import (
 )
 
 var ClientMongo *mongo.Client
-var nameCollection = "users"
+var nameCollection = "users_sys"
 
 //var client *mongo.Client
 var collection *mongo.Collection
@@ -42,39 +41,31 @@ func init() {
 	//fmt.Println("init Service1")
 }
 
-func GetListFromIdCompany(idCompany string) []authinterfaces.User {
+func GetListFromIdCompany(idCompany string) []authinterfaces.User_sys {
 	settingsCollections()
-	var dataSend []authinterfaces.User
+	var list []authinterfaces.User_sys
 	if collection != nil {
 		//transform string _id to Object
 		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
 		doc, _ := collection.Find(context.TODO(), bson.M{"public": 0, "idcompany": idCompany})
 		//doc.Decode(&hero)
-		var userData authinterfaces.User
-		for doc.Next(context.TODO()) {
-			// Declare a result BSON object
-			//var result bson.M
-			err := doc.Decode(&userData)
-			if err != nil {
-				fmt.Println(userData)
-			}
-			dataSend = append(dataSend, userData)
-		}
-		//hide all password this no send to user
-		for i := range dataSend {
-			dataSend[i].Password = ""
+		doc.All(context.Background(), &list)
+		doc.Close(context.TODO())
+		//hide all password this no send to User_sys
+		for i := range list {
+			list[i].Password = ""
 		}
 	}
 
-	return dataSend
+	return list
 }
 
-func CheckUserPasswordForEmail(user string, password string) authinterfaces.User {
+func CheckUserPasswordForEmail(User_sys string, password string) authinterfaces.User_sys {
 	settingsCollections()
-	var modelSend authinterfaces.User
+	var modelSend authinterfaces.User_sys
 	if collection != nil {
 
-		getUser := FindToEmail(user)
+		getUser := FindToEmail(User_sys)
 
 		if getUser.NickName != "" {
 
@@ -94,15 +85,14 @@ func CheckUserPasswordForEmail(user string, password string) authinterfaces.User
 	return modelSend
 }
 
-func CheckUserPasswordForUser(user string, password string) authinterfaces.User {
+func CheckUserPasswordForUser(User_sys string, password string) authinterfaces.User_sys {
 	settingsCollections()
-	var modelSend authinterfaces.User
+	var modelSend authinterfaces.User_sys
 	if collection != nil {
 
-		getUser := FindToNickName(user)
+		getUser := FindToNickName(User_sys)
 
 		if getUser.NickName != "" {
-
 			result := util.Descrypt(getUser.Password, []byte(password))
 			//fmt.Println(getUser.Password)
 			if result {
@@ -119,9 +109,9 @@ func CheckUserPasswordForUser(user string, password string) authinterfaces.User 
 	return modelSend
 }
 
-func FindToNickName(nickName string) authinterfaces.User {
+func FindToNickName(nickName string) authinterfaces.User_sys {
 	settingsCollections()
-	var modelSend authinterfaces.User
+	var modelSend authinterfaces.User_sys
 	if collection != nil {
 		//transform string _id to Object
 		// docID, _ := primitive.ObjectIDFromHex(id)
@@ -136,9 +126,9 @@ func FindToNickName(nickName string) authinterfaces.User {
 	return modelSend
 }
 
-func FindToEmail(email string) authinterfaces.User {
+func FindToEmail(email string) authinterfaces.User_sys {
 	settingsCollections()
-	var modelSend authinterfaces.User
+	var modelSend authinterfaces.User_sys
 	if collection != nil {
 		//transform string _id to Object
 		// docID, _ := primitive.ObjectIDFromHex(id)
@@ -153,10 +143,10 @@ func FindToEmail(email string) authinterfaces.User {
 	return modelSend
 }
 
-func FindToId(id string) authinterfaces.User {
-	fmt.Println(id)
+func FindToId(id string) authinterfaces.User_sys {
+	//fmt.Println(id)
 	settingsCollections()
-	var modelSend authinterfaces.User
+	var modelSend authinterfaces.User_sys
 	if collection != nil {
 		//transform string _id to Object
 		docID, _ := primitive.ObjectIDFromHex(id)
@@ -170,11 +160,11 @@ func FindToId(id string) authinterfaces.User {
 	return modelSend
 }
 
-func Add(user authinterfaces.User) string {
+func Add(User_sys authinterfaces.User_sys) string {
 	settingsCollections()
 
 	if collection != nil {
-		insertResult, err := collection.InsertOne(context.TODO(), user)
+		insertResult, err := collection.InsertOne(context.TODO(), User_sys)
 		if err != nil {
 			log.Fatalln("Error on inserting new Hero", err)
 			return ""
@@ -188,13 +178,13 @@ func Add(user authinterfaces.User) string {
 	return ""
 }
 
-func Delete(user authinterfaces.User) bool {
+func Delete(User_sys authinterfaces.User_sys) bool {
 	settingsCollections()
 
-	//var modelSend authinterfaces.User
+	//var modelSend authinterfaces.User_sys
 	if collection != nil {
 		//transform string _id to Object
-		docID, _ := primitive.ObjectIDFromHex(user.ID)
+		docID, _ := primitive.ObjectIDFromHex(User_sys.ID)
 		deleteResult, err := collection.DeleteOne(context.TODO(), bson.M{"_id": docID})
 
 		if err != nil {
@@ -211,10 +201,10 @@ func Delete(user authinterfaces.User) bool {
 	return false
 }
 
-func UpdateLastLogin(UserUpdate authinterfaces.User) bool {
+func UpdateLastLogin(UserUpdate authinterfaces.User_sys) bool {
 	settingsCollections()
 
-	//var modelSend authinterfaces.User
+	//var modelSend authinterfaces.User_sys
 	if collection != nil {
 
 		var id = UserUpdate.ID
@@ -236,10 +226,10 @@ func UpdateLastLogin(UserUpdate authinterfaces.User) bool {
 	return false
 }
 
-func UpdateOne1(UserUpdate authinterfaces.User) bool {
+func UpdateOne1(UserUpdate authinterfaces.User_sys) bool {
 	settingsCollections()
 
-	//var modelSend authinterfaces.User
+	//var modelSend authinterfaces.User_sys
 	if collection != nil {
 
 		var id = UserUpdate.ID
@@ -273,10 +263,10 @@ func UpdateOne1(UserUpdate authinterfaces.User) bool {
 	return false
 }
 
-func UpdateOne(UserUpdate authinterfaces.User) bool {
+func UpdateOne(UserUpdate authinterfaces.User_sys) bool {
 	settingsCollections()
 
-	//var modelSend authinterfaces.User
+	//var modelSend authinterfaces.User_sys
 	if collection != nil {
 
 		var id = UserUpdate.ID
@@ -306,6 +296,23 @@ func UpdateOne(UserUpdate authinterfaces.User) bool {
 	}
 
 	return false
+}
+
+func IsAccount(nickName string) bool {
+	var isAccount = false
+	resultNickName := FindToNickName(nickName)
+	if resultNickName.NickName == "" {
+		//search email
+		resultEmail := FindToEmail(nickName)
+		if resultEmail.NickName != "" {
+			//fmt.Println("** IS EMAIL")
+			isAccount = true
+		}
+	} else {
+		isAccount = true
+	}
+
+	return isAccount
 }
 
 func structToMap(i interface{}) (values url.Values) {

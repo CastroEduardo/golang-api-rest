@@ -16,11 +16,25 @@ const (
 
 	//urlUploadFiles
 	NameUrlPathFiles = "/uploads/images"
-
 	//userSys
-	AddUserSys_Post  = "/addusersys"
+	ManagedUserSys   = "/managedUserSys"
 	UserSysList_Post = "/userlistsys"
 
 	//rol_privileges_departament
-	AddDepartament = "/manageDepartament"
+	ControllerDepartamentUserSys = "/managedepartment"
+	ControllerRolUserSys         = "/managerolsys"
+	ControllerPrivilegeUserSys   = "/manageprivilegesys"
+
+	//types EVENTS LOGS
+	LOGIN_FAILE             = 111
+	LOGIN_SUCCESS           = 222
+	LOGIN_USER_EVENT_ADD    = 333
+	LOGIN_USER_EVENT_UPDATE = 444
+	LOGIN_USER_EVENT_REMOVE = 555
+	LOGIN_USER_SEARCH       = 666
+	LOGIN_USER_BLOCK        = 777
+	LOGIN_USER_GETCLAIM     = 888
+	LOGIN_USER_LOGOUT       = 999
+	LOGIN_USER_CHECK_TOKEN  = 1010
+	USER_CHECK_ISACCOUNT    = 1111
 )

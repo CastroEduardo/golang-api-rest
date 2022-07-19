@@ -1,8 +1,7 @@
-package dbdepartamentuser_service
+package dbdepartmentuser_service
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	// get an object type
@@ -19,7 +18,7 @@ import (
 )
 
 var ClientMongo *mongo.Client
-var nameCollection = "departaments_users_sys"
+var nameCollection = "dpts_users_sys"
 
 //var client *mongo.Client
 var collection *mongo.Collection
@@ -28,7 +27,7 @@ func settingsCollections() bool {
 
 	var nameDb = setting.MongoDbSetting.Name
 	ClientMongo = mongo_db.ClientMongo
-	fmt.Println("==> " + nameDb)
+	//fmt.Println("==> " + nameDb)
 
 	if ClientMongo != nil {
 		//fmt.Println(os.Getenv("TOKEN_HASH")))
@@ -39,7 +38,7 @@ func settingsCollections() bool {
 	return false
 }
 
-func Add(Model authinterfaces.DepartamentUserSys) string {
+func Add(Model authinterfaces.DptsUser_sys) string {
 	result := settingsCollections()
 	if result {
 		if collection != nil {
@@ -58,9 +57,9 @@ func Add(Model authinterfaces.DepartamentUserSys) string {
 
 }
 
-func FindToId(id string) authinterfaces.DepartamentUserSys {
+func FindToId(id string) authinterfaces.DptsUser_sys {
 	settingsCollections()
-	var modelSend authinterfaces.DepartamentUserSys
+	var modelSend authinterfaces.DptsUser_sys
 	if collection != nil {
 		//transform string _id to Object
 		docID, _ := primitive.ObjectIDFromHex(id)
@@ -71,30 +70,33 @@ func FindToId(id string) authinterfaces.DepartamentUserSys {
 	return modelSend
 }
 
-func GetListFromIdCompany(id string) []authinterfaces.DepartamentUserSys {
+func FindToKey(id string) authinterfaces.DptsUser_sys {
 	settingsCollections()
-	var list []authinterfaces.DepartamentUserSys
+	var modelSend authinterfaces.DptsUser_sys
 	if collection != nil {
 		//transform string _id to Object
-		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
+		//docID, _ := primitive.ObjectIDFromHex(id)
+		doc := collection.FindOne(context.TODO(), bson.M{"key": id})
+		doc.Decode(&modelSend)
+
+	}
+	return modelSend
+}
+
+func GetListFromIdCompany(id string) []authinterfaces.DptsUser_sys {
+	settingsCollections()
+	var list []authinterfaces.DptsUser_sys
+	if collection != nil {
 		doc, _ := collection.Find(context.TODO(), bson.M{"idcompany": id})
-		//doc.Decode(&hero)
-		var hero authinterfaces.DepartamentUserSys
-		for doc.Next(context.TODO()) {
-			// Declare a result BSON object
-			//var result bson.M
-			err := doc.Decode(&hero)
-			if err != nil {
-				fmt.Println(hero)
-			}
-			list = append(list, hero)
-		}
+
+		doc.All(context.Background(), &list)
+		doc.Close(context.TODO())
 	}
 
 	return list
 }
 
-func UpdateOne(model authinterfaces.DepartamentUserSys) bool {
+func UpdateOne(model authinterfaces.DptsUser_sys) bool {
 	settingsCollections()
 
 	//var modelSend authinterfaces.User
@@ -116,6 +118,83 @@ func UpdateOne(model authinterfaces.DepartamentUserSys) bool {
 
 		return true
 
+	}
+
+	return false
+}
+func UpdateOneToKey(model authinterfaces.DptsUser_sys) bool {
+	settingsCollections()
+
+	//	fmt.Println("Pass" + " " + model.ID)
+
+	//var modelSend authinterfaces.User
+	if collection != nil {
+
+		//var id = model.ID
+		model.ID = ""
+		update2 := bson.M{
+			"$set": model,
+		}
+		// update := bson.M{"$set": bson.M{}}
+		//docID, _ := primitive.ObjectIDFromHex(id)
+		_, err := collection.UpdateOne(context.TODO(), bson.M{"key": model.Key}, update2)
+
+		if err != nil {
+			log.Fatalln("Error on inserting new departament", err)
+			return false
+		}
+
+		return true
+
+	}
+
+	return false
+}
+
+func SearchParentIdCompany(idCompany string, keySearch string) (string, string) {
+
+	parentId := ""
+	childId := ""
+
+	list := GetListFromIdCompany(idCompany)
+
+	found := false
+	for _, v := range list {
+		if !found {
+			parentId = v.Key
+			if keySearch == v.Key {
+				break
+			} else {
+				for _, child := range v.Children {
+
+					if keySearch == child.Key {
+						found = true
+						childId = child.Key
+
+						break
+					}
+				}
+			}
+		}
+	}
+	return parentId, childId
+}
+
+func DeleteToKey(key string) bool {
+	settingsCollections()
+
+	//var modelSend authinterfaces.User
+	if collection != nil {
+		//transform string _id to Object
+		//docID, _ := primitive.ObjectIDFromHex(id)
+		deleteResult, err := collection.DeleteOne(context.TODO(), bson.M{"key": key})
+		if err != nil {
+			log.Fatalln("Error on inserting new Departament", err)
+			return false
+		}
+		if deleteResult.DeletedCount > 0 {
+			return true
+		}
 	}
 
 	return false

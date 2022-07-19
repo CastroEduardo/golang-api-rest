@@ -24,13 +24,13 @@ type LogUser struct {
 }
 
 type LogSystem struct {
-	ID     string `json:"id,omitempty" bson:"_id,omitempty"`
-	Log    string `json:"log" bson:"log"`
-	Ip     string `json:"ip" bson:"ip"`
-	Status int    `json:"status" bson:"status"`
-
-	Level int       `json:"level" bson:"level"`
-	Date  time.Time `json:"date" bson:"date"`
+	ID           string    `json:"id,omitempty" bson:"_id,omitempty"`
+	Log          string    `json:"log" bson:"log"`
+	Ip           string    `json:"ip" bson:"ip"`
+	Status       int       `json:"status" bson:"status"`
+	IdAssociated string    `json:"idAssociated" bson:"id_associated"`
+	Level        int       `json:"level" bson:"level"`
+	Date         time.Time `json:"date" bson:"date"`
 }
 
 type GenericList struct {

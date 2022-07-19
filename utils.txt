@@ -31,4 +31,45 @@ go get github.com/cespare/reflex
 reflex -r '\.go$' -- sh -c "swag init & go run main.go"
 
 
-								 
+
+	//var listAdd []authinterfaces.DptsUser_sys
+
+			// for i := 0; i < 3; i++ {
+
+			// 	//create parent
+			// 	newDpt := authinterfaces.DptsUser_sys{
+			// 		Title:     "DPT___Padre # " + strconv.Itoa(i+1),
+			// 		Key:       "key",
+			// 		Note:      "NOTE ",
+			// 		Status:    1,
+			// 		OrderNo:   i + 1,
+			// 		IdCompany: idCompany.User.IdCompany,
+			// 		DateAdd:   time.Now(),
+			// 	}
+			// 	idParent := dbdepartmentuser_service.Add(newDpt)
+			// 	getDptUpdate := dbdepartmentuser_service.FindToId(idParent)
+
+			// 	for i := 0; i < 5; i++ {
+			// 		newDptToAdd := authinterfaces.DptsUser_sys{
+			// 			Title:     "SUB_DPT # " + strconv.Itoa(i),
+			// 			Key:       util.GetUniqueId(),
+			// 			Note:      " NOTE " + strconv.Itoa(i+1),
+			// 			OrderNo:   i + 1,
+			// 			Status:    1,
+			// 			IdCompany: idCompany.User.IdCompany,
+			// 			DateAdd:   time.Now(),
+			// 		}
+
+			// 		listAdd = append(listAdd, newDptToAdd)
+			// 	}
+
+			// 	getDptUpdate.Children = listAdd
+			// 	getDptUpdate.Key = idParent
+			// 	dbdepartmentuser_service.UpdateOne(getDptUpdate)
+
+			// 	//clear list
+			// 	listAdd = nil
+
+			// }
+
+			//fmt.Println("SEARCH" + idCompany.Company.ID)

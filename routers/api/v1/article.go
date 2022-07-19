@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/astaxie/beego/validation"
@@ -30,7 +29,7 @@ import (
 func GetArticle(c *gin.Context) {
 	appG := app.Gin{C: c}
 	id := com.StrTo(c.Param("id")).MustInt()
-	fmt.Println(id)
+	//fmt.Println(id)
 	valid := validation.Validation{}
 	valid.Min(id, 1, "id")
 

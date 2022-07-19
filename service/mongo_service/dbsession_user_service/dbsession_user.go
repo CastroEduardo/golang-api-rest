@@ -2,7 +2,6 @@ package dbsession_user_service
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os" // get an object type
 
@@ -12,8 +11,10 @@ import (
 	"github.com/CastroEduardo/golang-api-rest/models/authinterfaces"
 	"github.com/CastroEduardo/golang-api-rest/pkg/mongo_db"
 	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
+	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbPrivilegeuser_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbcompany_service"
-	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbprivilege_rol_user_service"
+	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbdepartmentuser_service"
+
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbrol_user_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbusers_service"
 	"github.com/dgrijalva/jwt-go"
@@ -23,7 +24,7 @@ import (
 )
 
 var ClientMongo *mongo.Client
-var nameCollection = "session_users"
+var nameCollection = "session_users_sys"
 
 //var client *mongo.Client
 var collection *mongo.Collection
@@ -57,8 +58,7 @@ func Add(Model authinterfaces.SessionUser) string {
 }
 
 func LogoutSessionToIdUser(idUser string) bool {
-	var sessionUser authinterfaces.SessionUser
-	sessionUser = FindToActiveIdUser(idUser)
+	sessionUser := FindToActiveIdUser(idUser)
 	if sessionUser.IdCompany != "" {
 		if sessionUser.Active {
 			sessionUser.Active = false
@@ -141,17 +141,8 @@ func GetList() []authinterfaces.SessionUser {
 		//transform string _id to Object
 		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
 		doc, _ := collection.Find(context.TODO(), bson.M{})
-		//doc.Decode(&hero)
-		var hero authinterfaces.SessionUser
-		for doc.Next(context.TODO()) {
-			// Declare a result BSON object
-			//var result bson.M
-			err := doc.Decode(&hero)
-			if err != nil {
-				fmt.Println(hero)
-			}
-			list = append(list, hero)
-		}
+		doc.All(context.Background(), &list)
+		doc.Close(context.TODO())
 	}
 
 	return list
@@ -176,25 +167,7 @@ func GetIdSessionToToken(tokenHeader string) string {
 func GetClaimForToken(token string) authinterfaces.ClaimSession {
 
 	SendModel := authinterfaces.ClaimSession{}
-
-	// if tokenHeader == "" {
-	// 	return SendModel
-	// }
-
 	settingsCollections()
-
-	// splitted := strings.Split(tokenHeader, " ") //The token normally comes in format `Bearer {token-body}`, we check if the retrieved token matched this requirement
-	// tokenPart := splitted[1]                    //Grab the token part, what we are truly interested in
-	// tk := &authinterfaces.Token{}
-
-	// //fmt.Println(tokenPart)
-	// _, errt := jwt.ParseWithClaims(tokenPart, tk, func(token *jwt.Token) (interface{}, error) {
-	// 	return []byte(os.Getenv("TOKEN_HASH")), nil
-	// })
-
-	// if errt != nil {
-	// 	return SendModel
-	// }
 
 	if token == "" {
 		return SendModel
@@ -208,24 +181,59 @@ func GetClaimForToken(token string) authinterfaces.ClaimSession {
 		doc.Decode(&dataSession)
 	}
 
-	var dataCompany authinterfaces.Company
-	dataCompany = dbcompany_service.FindToId(dataSession.IdCompany)
-	SendModel.Company = dataCompany
+	dataCompany := dbcompany_service.FindToId(dataSession.IdCompany)
+	SendModel.Company_sys = dataCompany
 
-	var dataUser authinterfaces.User
-	dataUser = dbusers_service.FindToId(dataSession.IdUser)
-	fmt.Println("----here")
-	fmt.Println(dataUser.NickName)
+	dataUser := dbusers_service.FindToId(dataSession.IdUser)
+
 	dataUser.Password = ""
-	SendModel.User = dataUser
+	SendModel.User_sys = dataUser
 
-	var dataPrivilegesRol authinterfaces.UserPrivileges
-	dataPrivilegesRol = dbprivilege_rol_user_service.FindToIdRol(dataUser.IdRol)
-	SendModel.UserPrivileges = dataPrivilegesRol
+	dataDeptUser_sys := authinterfaces.DptsUser_sys{}
+	// SendModel.DeptUser_sys = dataDeptUser_sys
 
-	var dataRolUser authinterfaces.RolUser
-	dataRolUser = dbrol_user_service.FindToIdRol(dataUser.IdRol)
-	SendModel.RolUser = dataRolUser
+	idParent, idChild := dbdepartmentuser_service.SearchParentIdCompany(dataUser.IdCompany, dataUser.IdDept)
+
+	if idChild != "" {
+		//is Children
+		getParent := dbdepartmentuser_service.FindToKey(idParent)
+		for _, v := range getParent.Children {
+			if v.Key == idChild {
+				dataDeptUser_sys = v
+				break
+			}
+		}
+		dataDeptUser_sys.Children = []authinterfaces.DptsUser_sys{}
+
+	} else {
+		//is Parent
+		dataDeptUser_sys = dbdepartmentuser_service.FindToId(idParent)
+		dataDeptUser_sys.Children = []authinterfaces.DptsUser_sys{}
+	}
+	SendModel.DeptUser_sys = dataDeptUser_sys
+
+	dataRolUser := dbrol_user_service.FindToId(dataDeptUser_sys.IdRole)
+	SendModel.RolUser_sys = dataRolUser
+
+	dataPrivilegesRol := dbPrivilegeuser_service.FindToId(dataRolUser.IdPrivilege)
+	SendModel.UserPrivileges_sys = dataPrivilegesRol
+
+	//check Page Home
+	switch dataPrivilegesRol.DefaultPage {
+	case 1:
+		///dashboard/workbench
+		SendModel.User_sys.DefaultPathHome = "/dashboard/workbench"
+	case 2:
+		///dashboard/analysis
+		SendModel.User_sys.DefaultPathHome = "/dashboard/analysis"
+	default:
+		break
+
+	}
+
+	// var dataPrivilege authinterfaces.UserPrivileges_sys
+	// dataPrivilege = dbPrivilegeuser_service.FindToId(dataRolUser.IdPrivilege)
+	// SendModel.PrivilegeUser_sys = dataPrivilege
 
 	//fmt.Println(dataPrivilegesRol)
 
