@@ -65,9 +65,9 @@ func main() {
 	//server.ListenAndServe()
 	//finally we Listen for requests and serve them up on a specific port
 
-	server.ListenAndServeTLS("192.168.0.101+3.pem", "192.168.0.101+3-key.pem")
+	//server.ListenAndServeTLS("trtest+3.pem", "trtest+3-key.pem")
 
-	//server.ListenAndServe()
+	server.ListenAndServe()
 	// srv := &http.Server{
 	// 	Addr:         "",
 	// 	Handler:      routersInit,

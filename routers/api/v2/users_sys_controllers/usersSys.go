@@ -115,7 +115,6 @@ func ManagedUserSys(c *gin.Context) {
 		fmt.Println(result)
 		appG.Response(http.StatusOK, e.SUCCESS, result)
 		return
-
 	case "delete":
 
 		fmt.Println("___DELeTE___")
@@ -128,7 +127,15 @@ func ManagedUserSys(c *gin.Context) {
 		go dblogs_service.Add(conf.LOGIN_USER_EVENT_REMOVE, "DELETE USER: "+string(out), claimSession.User_sys.ID, ipRequest)
 		appG.Response(http.StatusOK, e.SUCCESS, response)
 		return
+	case "remove-tours-init":
 
+		fmt.Println("DISaBLE_TOURS")
+		idUser := claimSession.User_sys.ID
+		userUpdate := dbusers_service.FindToId(idUser)
+		userUpdate.ToursInit = false
+		result := dbusers_service.UpdateOne(userUpdate)
+		appG.Response(http.StatusOK, e.SUCCESS, result)
+		return
 	case "isAccount":
 		isAccount := dbusers_service.IsAccount(paramRequest.IdParam)
 		appG.Response(http.StatusOK, e.SUCCESS, isAccount)
@@ -140,14 +147,7 @@ func ManagedUserSys(c *gin.Context) {
 
 	appG.Response(http.StatusInternalServerError, e.ERROR, "false")
 	return
-	//fmt.Println(ipRequest)
-	// jsonParsed, err := gabs.ParseJSON(formModel)
-	// if err != nil {
-	// 	panic(err)
-	// }
 
-	//appG.Response(http.StatusOK, e.SUCCESS, "DATA")
-	//return
 }
 
 type RequestParams struct {
