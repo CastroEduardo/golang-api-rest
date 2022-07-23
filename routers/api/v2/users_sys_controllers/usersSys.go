@@ -47,6 +47,26 @@ func ManagedUserSys(c *gin.Context) {
 	c.BindJSON(&paramRequest)
 	switch paramRequest.TypeOperation {
 	case "search":
+
+		fmt.Println("SEARCH ___")
+
+		var data []byte
+		if paramRequest.IdParam == "" {
+			result := dbusers_service.GetListFromIdCompany(claimSession.Company_sys.ID)
+			u, _ := json.Marshal(result)
+			data = u
+
+		} else {
+			result := dbusers_service.GetListFromIdCompany(claimSession.Company_sys.ID)
+			u, _ := json.Marshal(result)
+			data = u
+
+		}
+
+		//fmt.Println(string(data))
+		appG.Response(http.StatusOK, e.SUCCESS, string(data))
+		return
+
 	case "add":
 		fmt.Println("___ADD___")
 
@@ -54,13 +74,13 @@ func ManagedUserSys(c *gin.Context) {
 		json.Unmarshal([]byte(paramRequest.ModelJson), &modelRequest)
 
 		modelNew := authinterfaces.User_sys{
-			NickName:        modelRequest.NickName,
-			Name:            modelRequest.NickName,
+			NickName:        strings.ToLower(modelRequest.NickName),
+			Name:            strings.ToLower(modelRequest.NickName),
 			LastName:        "",
 			Contact:         "",
 			City:            "",
 			Gender:          "",
-			Email:           modelRequest.Email,
+			Email:           strings.ToLower(modelRequest.Email),
 			IdDept:          modelRequest.IdDept,
 			IdCompany:       claimSession.Company_sys.ID,
 			Status:          1,
@@ -75,12 +95,40 @@ func ManagedUserSys(c *gin.Context) {
 			ToursInit:       true,
 		}
 
+		result := dbusers_service.Add(modelNew)
 		fmt.Println(modelNew)
-
-		appG.Response(http.StatusOK, e.SUCCESS, "true")
+		appG.Response(http.StatusOK, e.SUCCESS, result)
 		return
 	case "update":
+
+		modelRequest := authinterfaces.User_sys{}
+		json.Unmarshal([]byte(paramRequest.ModelJson), &modelRequest)
+
+		userToUpdate := dbusers_service.FindToId(paramRequest.IdParam)
+
+		userToUpdate.Email = strings.ToLower(modelRequest.Email)
+		userToUpdate.Note = modelRequest.Note
+		userToUpdate.IdDept = modelRequest.IdDept
+
+		result := dbusers_service.UpdateOne(userToUpdate)
+
+		fmt.Println(result)
+		appG.Response(http.StatusOK, e.SUCCESS, result)
+		return
+
 	case "delete":
+
+		fmt.Println("___DELeTE___")
+		userFind := dbusers_service.FindToId(paramRequest.IdParam)
+		out, err := json.Marshal(userFind)
+		if err != nil {
+			panic(err)
+		}
+		response := dbusers_service.DeleteToId(paramRequest.IdParam)
+		go dblogs_service.Add(conf.LOGIN_USER_EVENT_REMOVE, "DELETE USER: "+string(out), claimSession.User_sys.ID, ipRequest)
+		appG.Response(http.StatusOK, e.SUCCESS, response)
+		return
+
 	case "isAccount":
 		isAccount := dbusers_service.IsAccount(paramRequest.IdParam)
 		appG.Response(http.StatusOK, e.SUCCESS, isAccount)
@@ -90,7 +138,7 @@ func ManagedUserSys(c *gin.Context) {
 		break
 	}
 
-	appG.Response(http.StatusOK, e.SUCCESS, "true")
+	appG.Response(http.StatusInternalServerError, e.ERROR, "false")
 	return
 	//fmt.Println(ipRequest)
 	// jsonParsed, err := gabs.ParseJSON(formModel)

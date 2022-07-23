@@ -47,7 +47,7 @@ func GetListFromIdCompany(idCompany string) []authinterfaces.User_sys {
 	if collection != nil {
 		//transform string _id to Object
 		//docID, _ := primitive.ObjectIDFromHex("5e78131bcf026003ec8cb639")
-		doc, _ := collection.Find(context.TODO(), bson.M{"public": 0, "idcompany": idCompany})
+		doc, _ := collection.Find(context.TODO(), bson.M{"public": 1, "idcompany": idCompany})
 		//doc.Decode(&hero)
 		doc.All(context.Background(), &list)
 		doc.Close(context.TODO())
@@ -178,17 +178,17 @@ func Add(User_sys authinterfaces.User_sys) string {
 	return ""
 }
 
-func Delete(User_sys authinterfaces.User_sys) bool {
+func DeleteToId(id string) bool {
 	settingsCollections()
 
 	//var modelSend authinterfaces.User_sys
 	if collection != nil {
 		//transform string _id to Object
-		docID, _ := primitive.ObjectIDFromHex(User_sys.ID)
+		docID, _ := primitive.ObjectIDFromHex(id)
 		deleteResult, err := collection.DeleteOne(context.TODO(), bson.M{"_id": docID})
 
 		if err != nil {
-			log.Fatalln("Error on inserting new Hero", err)
+			log.Fatalln("Error Finding user", err)
 			return false
 		}
 
@@ -285,17 +285,13 @@ func UpdateOne(UserUpdate authinterfaces.User_sys) bool {
 		_, err := collection.UpdateOne(context.TODO(), bson.M{"_id": docID}, update2)
 
 		if err != nil {
-			log.Fatalln("Error on inserting new Hero", err)
+			log.Fatalln("Error Update User ", err)
 			return false
 		}
 
-		// if deleteResult.DeletedCount > 0 {
-		// 	return true
-		// }
-
 	}
 
-	return false
+	return true
 }
 
 func IsAccount(nickName string) bool {

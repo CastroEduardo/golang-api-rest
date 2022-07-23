@@ -48,7 +48,7 @@ type User_sys struct {
 	City            string    `json:"city" bson:"city"`
 	Gender          string    `json:"gender" bson:"gender"`
 	Email           string    `json:"email" bson:"email"`
-	IdDept          string    `json:"IdDept" bson:"iddept"`
+	IdDept          string    `json:"idDept" bson:"iddept"`
 	IdCompany       string    `json:"idCompany"  bson:"idcompany"`
 	Status          int       `json:"status" bson:"status"`
 	Image           string    `json:"image" bson:"image"`
