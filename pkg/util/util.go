@@ -6,7 +6,11 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io"
+	"log"
 	"net/http"
+	"os"
+	"strings"
 
 	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
 	"github.com/rs/xid"
@@ -17,6 +21,12 @@ import (
 // Setup Initialize the util
 func Setup() {
 	jwtSecret = []byte(setting.AppSetting.JwtSecret)
+}
+
+func Capitalize(text string) string {
+
+	res := strings.Title(text)
+	return res
 }
 
 func Message(status bool, message string) map[string]interface{} {
@@ -121,4 +131,37 @@ func GetUniqueId() string {
 
 	return guid.String()
 
+}
+func RenameFile(oldSrc string, newSrc string) bool {
+	err := os.Rename(oldSrc, newSrc)
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+
+	return true
+}
+
+func MoveFile(sourcePath, destPath string) error {
+	inputFile, err := os.Open(sourcePath)
+	if err != nil {
+		return fmt.Errorf("Couldn't open source file: %s", err)
+	}
+	outputFile, err := os.Create(destPath)
+	if err != nil {
+		inputFile.Close()
+		return fmt.Errorf("Couldn't open dest file: %s", err)
+	}
+	defer outputFile.Close()
+	_, err = io.Copy(outputFile, inputFile)
+	inputFile.Close()
+	if err != nil {
+		return fmt.Errorf("Writing to output file failed: %s", err)
+	}
+	// The copy was successful, so now delete the original file
+	err = os.Remove(sourcePath)
+	if err != nil {
+		return fmt.Errorf("Failed removing original file: %s", err)
+	}
+	return nil
 }

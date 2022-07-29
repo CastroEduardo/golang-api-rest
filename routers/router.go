@@ -19,22 +19,24 @@ import (
 	v1 "github.com/CastroEduardo/golang-api-rest/routers/api/v1"
 	v2 "github.com/CastroEduardo/golang-api-rest/routers/api/v2"
 	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/rol_privilege_department_sys_controller"
+	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/uploadsfiles"
 	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/users_sys_controllers"
 )
 
 // InitRouter initialize routing information
 func InitRouter() *gin.Engine {
 	r := gin.New()
-	r.Use(CORSMiddleware())
+	//r.Use(CORSMiddleware())
+	r.Use(CORS())
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
 	fmt.Println("-- LOADING --")
 
 	r.StaticFS("/export", http.Dir(export.GetExcelFullPath()))
-
 	r.StaticFS("/qrcode", http.Dir(qrcode.GetQrCodeFullPath()))
-
+	//upload files
+	r.POST(conf.ControllerUploadFiles, uploadsfiles.ManagedUploads)
 	r.POST("/auth", api.PostAuth)
 	r.GET("/auth", api.GetAuth)
 	r.POST("/auth/claim-user", api.PostClaimUser)
@@ -67,6 +69,9 @@ func InitRouter() *gin.Engine {
 		apiv2.POST(conf.ControllerDepartamentUserSys, rol_privilege_department_sys_controller.ManageDepartamentSys)
 		apiv2.POST(conf.ControllerRolUserSys, rol_privilege_department_sys_controller.ManageRolSys)
 		apiv2.POST(conf.ControllerPrivilegeUserSys, rol_privilege_department_sys_controller.ManagePrivilegeSys)
+
+		//upload files
+		//apiv2.POST(conf.ControllerUploadFiles, uploadsfiles.ManagedUploads)
 
 	}
 
@@ -109,13 +114,34 @@ func InitRouter() *gin.Engine {
 	return r
 }
 
+func CORS() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	}
+}
+
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Credentials", "true")
-		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Header("Access-Control-Allow-Methods", "POST,HEAD,PATCH, OPTIONS, GET, PUT")
+		c.Header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+		c.Header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
+
+		// c.Header("Access-Control-Allow-Origin", "*")
+		// c.Header("Access-Control-Allow-Credentials", "true")
+		// c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		// c.Header("Access-Control-Allow-Methods", "POST,HEAD,PATCH, OPTIONS, GET, PUT")
 
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)

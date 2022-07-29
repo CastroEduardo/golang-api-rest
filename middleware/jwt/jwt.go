@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -17,7 +18,7 @@ import (
 // JWT is jwt middleware
 func JWT() gin.HandlerFunc {
 	return func(c *gin.Context) {
-
+		fmt.Println("--88888")
 		if checkFilesSegurity(c) {
 			c.Next()
 			return
@@ -28,6 +29,7 @@ func JWT() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
+
 		token := strings.TrimPrefix(auth, "Bearer ")
 		if token == auth {
 			c.String(http.StatusForbidden, "Could not find bearer token in Authorization header")

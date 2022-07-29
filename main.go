@@ -62,12 +62,9 @@ func main() {
 		// 	TLSNextProto:  make(map[string]func(*http.Server, *tls.Conn, http.Handler), 0),
 	}
 
+	server.ListenAndServeTLS("192.168.0.101+3.pem", "192.168.0.101+3-key.pem")
 	//server.ListenAndServe()
-	//finally we Listen for requests and serve them up on a specific port
 
-	//server.ListenAndServeTLS("trtest+3.pem", "trtest+3-key.pem")
-
-	server.ListenAndServe()
 	// srv := &http.Server{
 	// 	Addr:         "",
 	// 	Handler:      routersInit,

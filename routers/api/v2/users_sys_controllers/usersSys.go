@@ -45,26 +45,32 @@ func ManagedUserSys(c *gin.Context) {
 
 	paramRequest := RequestParams{}
 	c.BindJSON(&paramRequest)
+
 	switch paramRequest.TypeOperation {
 	case "search":
-
 		fmt.Println("SEARCH ___")
-
 		var data []byte
 		if paramRequest.IdParam == "" {
 			result := dbusers_service.GetListFromIdCompany(claimSession.Company_sys.ID)
 			u, _ := json.Marshal(result)
 			data = u
-
 		} else {
 			result := dbusers_service.GetListFromIdCompany(claimSession.Company_sys.ID)
 			u, _ := json.Marshal(result)
 			data = u
-
 		}
 
 		//fmt.Println(string(data))
 		appG.Response(http.StatusOK, e.SUCCESS, string(data))
+		return
+	case "searchId":
+		fmt.Println("SEARCH ___")
+		result := dbusers_service.FindToId(paramRequest.IdParam)
+		result.NickName = util.Capitalize(result.NickName)
+		result.Name = util.Capitalize(result.Name)
+		u, _ := json.Marshal(result)
+
+		appG.Response(http.StatusOK, e.SUCCESS, string(u))
 		return
 
 	case "add":
@@ -93,6 +99,7 @@ func ManagedUserSys(c *gin.Context) {
 			DefaultPathHome: "/dashboard/workbench",
 			DateAdd:         time.Now(),
 			ToursInit:       true,
+			Address:         "",
 		}
 
 		result := dbusers_service.Add(modelNew)
@@ -105,7 +112,6 @@ func ManagedUserSys(c *gin.Context) {
 		json.Unmarshal([]byte(paramRequest.ModelJson), &modelRequest)
 
 		userToUpdate := dbusers_service.FindToId(paramRequest.IdParam)
-
 		userToUpdate.Email = strings.ToLower(modelRequest.Email)
 		userToUpdate.Note = modelRequest.Note
 		userToUpdate.IdDept = modelRequest.IdDept
@@ -113,6 +119,24 @@ func ManagedUserSys(c *gin.Context) {
 		result := dbusers_service.UpdateOne(userToUpdate)
 
 		fmt.Println(result)
+		appG.Response(http.StatusOK, e.SUCCESS, result)
+		return
+
+	case "updateProfile":
+
+		modelRequest := authinterfaces.User_sys{}
+		json.Unmarshal([]byte(paramRequest.ModelJson), &modelRequest)
+
+		userToUpdate := dbusers_service.FindToId(paramRequest.IdParam)
+		userToUpdate.Email = strings.ToLower(modelRequest.Email)
+		userToUpdate.Note = modelRequest.Note
+		userToUpdate.Address = modelRequest.Address
+		userToUpdate.Contact = modelRequest.Contact
+		userToUpdate.Gender = modelRequest.Gender
+		userToUpdate.Name = modelRequest.Name
+		result := dbusers_service.UpdateOne(userToUpdate)
+
+		fmt.Println(modelRequest)
 		appG.Response(http.StatusOK, e.SUCCESS, result)
 		return
 	case "delete":
@@ -128,14 +152,42 @@ func ManagedUserSys(c *gin.Context) {
 		appG.Response(http.StatusOK, e.SUCCESS, response)
 		return
 	case "remove-tours-init":
-
-		fmt.Println("DISaBLE_TOURS")
 		idUser := claimSession.User_sys.ID
 		userUpdate := dbusers_service.FindToId(idUser)
 		userUpdate.ToursInit = false
 		result := dbusers_service.UpdateOne(userUpdate)
 		appG.Response(http.StatusOK, e.SUCCESS, result)
 		return
+
+	case "updateStatus":
+		//idUser := claimSession.User_sys.ID
+		userUpdate := dbusers_service.FindToId(paramRequest.IdParam)
+		if userUpdate.Status == 1 {
+			userUpdate.Status = 0
+		} else {
+			userUpdate.Status = 1
+		}
+		result := dbusers_service.UpdateOne(userUpdate)
+		appG.Response(http.StatusOK, e.SUCCESS, result)
+		return
+
+	case "changed-password":
+
+		var userToUpdate = authinterfaces.User_sys{}
+		if paramRequest.IdParam == "" {
+			userToUpdate = dbusers_service.FindToId(claimSession.User_sys.ID)
+			userToUpdate.Password = util.Encript([]byte(paramRequest.ModelJson))
+		} else {
+			userToUpdate = dbusers_service.FindToId(paramRequest.IdParam)
+		}
+		userToUpdate.ForcePass = false
+
+		go dblogs_service.Add(conf.USER_EVENT_UPDATE_PASSWORD, "UPDATE PASSWORD USER : "+userToUpdate.NickName, claimSession.User_sys.ID, ipRequest)
+
+		result := dbusers_service.UpdateOne(userToUpdate)
+		appG.Response(http.StatusOK, e.SUCCESS, result)
+		return
+
 	case "isAccount":
 		isAccount := dbusers_service.IsAccount(paramRequest.IdParam)
 		appG.Response(http.StatusOK, e.SUCCESS, isAccount)
