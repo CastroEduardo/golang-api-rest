@@ -50,6 +50,7 @@ func ManagedUploads(c *gin.Context) {
 	// Multipart form
 	form, _ := c.MultipartForm()
 	files := form.File["file"]
+
 	for _, file := range files {
 		divideName := strings.Split(file.Filename, "*")
 		file.Filename = divideName[0]
@@ -59,6 +60,12 @@ func ManagedUploads(c *gin.Context) {
 		fmt.Println(typeAction)
 		fmt.Println(idAction)
 
+		fileContent, _ := file.Open()
+		var byteContainer []byte
+		byteContainer = make([]byte, 1000000)
+		fileContent.Read(byteContainer)
+		// fmt.Println(byteContainer)
+
 		//var asd:=interface{}
 		//form-data; name="file"; filename="avatar.png"
 		//fmt.Println(file.Header[0])
@@ -67,6 +74,8 @@ func ManagedUploads(c *gin.Context) {
 		if typeFile[1] == "png" || typeFile[1] == "jpg" || typeFile[1] == "jpeg" || typeFile[1] == "svg" {
 			typeFolder = "/images/"
 			pathNew = src + claimSession.Company_sys.FolderFiles + typeFolder + newNameFile
+
+			//filename, err :=  u  (buffer, 40, "uploads")
 
 		} else {
 			//dst := path.Join(src, file.Filename)

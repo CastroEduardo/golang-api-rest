@@ -55,8 +55,9 @@ func InitRouter() *gin.Engine {
 	apiv2 := r.Group(conf.NameUrlApi2)
 	apiv2.Use(jwt.JWT())
 	{
-
 		src := upload.GetImageFullPath()
+		fmt.Println(src)
+
 		apiv2.StaticFS(conf.NameUrlPathFiles, http.Dir(src))
 		//test articles
 		apiv2.GET(conf.ArticlesParms_GET, v2.GetArticle)

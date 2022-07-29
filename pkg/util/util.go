@@ -13,8 +13,8 @@ import (
 	"strings"
 
 	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
-	"github.com/rs/xid"
 
+	"github.com/rs/xid"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -25,8 +25,7 @@ func Setup() {
 
 func Capitalize(text string) string {
 
-	res := strings.Title(text)
-	return res
+	return strings.Title(text)
 }
 
 func Message(status bool, message string) map[string]interface{} {
@@ -104,18 +103,18 @@ func EncryptAES(text string) (string, error) {
 	return Encode(cipherText), nil
 }
 
-// Decrypt method is to extract back the encrypted text
-func ecryptAES(text string) (string, error) {
-	block, err := aes.NewCipher([]byte(MySecret))
-	if err != nil {
-		return "", err
-	}
-	cipherText := Decode(text)
-	cfb := cipher.NewCFBDecrypter(block, bytes)
-	plainText := make([]byte, len(cipherText))
-	cfb.XORKeyStream(plainText, cipherText)
-	return string(plainText), nil
-}
+// // Decrypt method is to extract back the encrypted text
+// func encryptAES(text string) (string, error) {
+// 	block, err := aes.NewCipher([]byte(MySecret))
+// 	if err != nil {
+// 		return string(""), err
+// 	}
+// 	cipherText := Decode(text)
+// 	cfb := cipher.NewCFBDecrypter(block, bytes)
+// 	plainText := make([]byte, len(cipherText))
+// 	cfb.XORKeyStream(plainText, cipherText)
+// 	return string(plainText), nil
+// }
 
 func Decode(s string) []byte {
 	data, err := base64.StdEncoding.DecodeString(s)
@@ -143,25 +142,48 @@ func RenameFile(oldSrc string, newSrc string) bool {
 }
 
 func MoveFile(sourcePath, destPath string) error {
+
+	//erro := fmt.Errorf("Couldn't open source file: %s", err)
 	inputFile, err := os.Open(sourcePath)
 	if err != nil {
-		return fmt.Errorf("Couldn't open source file: %s", err)
+		return err
 	}
 	outputFile, err := os.Create(destPath)
 	if err != nil {
 		inputFile.Close()
-		return fmt.Errorf("Couldn't open dest file: %s", err)
+		return err
 	}
 	defer outputFile.Close()
 	_, err = io.Copy(outputFile, inputFile)
 	inputFile.Close()
 	if err != nil {
-		return fmt.Errorf("Writing to output file failed: %s", err)
+		return err
 	}
 	// The copy was successful, so now delete the original file
 	err = os.Remove(sourcePath)
 	if err != nil {
-		return fmt.Errorf("Failed removing original file: %s", err)
+		return err
 	}
 	return nil
 }
+
+// func imageProcessing(buffer []byte, quality int, dirname string) (string, error) {
+// 	filename := "demo" + ".webp" //strings.Replace(uuid.New().String(), "-", "", -1) + ".webp"
+
+// 	converted, err := bimg.NewImage(buffer).Convert(bimg.WEBP)
+// 	if err != nil {
+// 		return filename, err
+// 	}
+
+// 	processed, err := bimg.NewImage(converted).Process(bimg.Options{Quality: quality})
+// 	if err != nil {
+// 		return filename, err
+// 	}
+
+// 	writeError := bimg.Write(fmt.Sprintf("./"+dirname+"/%s", filename), processed)
+// 	if writeError != nil {
+// 		return filename, writeError
+// 	}
+
+// 	return filename, nil
+// }

@@ -14,7 +14,6 @@ github.com/boombuler/barcode/qr
 github.com/boombuler/barcode/utils
 # github.com/cloudmailin/cloudmailin-go v0.2.0
 ## explicit; go 1.14
-github.com/cloudmailin/cloudmailin-go
 # github.com/denisenkom/go-mssqldb v0.0.0-20190920000552-128d9f4ae1cd
 ## explicit; go 1.11
 # github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -69,6 +68,8 @@ github.com/golang/snappy
 github.com/gomodule/redigo/internal
 github.com/gomodule/redigo/redis
 # github.com/google/uuid v1.3.0
+## explicit
+
 ## explicit
 # github.com/jinzhu/gorm v0.0.0-20180213101209-6e1387b44c64
 ## explicit

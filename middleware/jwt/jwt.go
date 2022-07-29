@@ -1,15 +1,16 @@
 package jwt
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 
+	"github.com/CastroEduardo/golang-api-rest/conf"
 	"github.com/CastroEduardo/golang-api-rest/pkg/e"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbcompany_service"
+	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dblogs_service"
 	"github.com/CastroEduardo/golang-api-rest/service/mongo_service/dbsession_user_service"
 
 	"github.com/CastroEduardo/golang-api-rest/pkg/util"
@@ -18,7 +19,7 @@ import (
 // JWT is jwt middleware
 func JWT() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Println("--88888")
+
 		if checkFilesSegurity(c) {
 			c.Next()
 			return
@@ -131,10 +132,17 @@ func checkFilesSegurity(c *gin.Context) bool {
 
 		isLogin := dbsession_user_service.FindToToken(token_key)
 
+		if !isLogin.Active {
+			c.Next()
+			return false
+		}
+
 		//get namFolderCompany
 		getIdFolder := dbcompany_service.FindToId(isLogin.IdCompany)
 		folderCompany := getIdFolder.FolderFiles
-		//fmt.Println(folderCompany)
+
+		ipRequest := c.ClientIP()
+		go dblogs_service.Add(conf.SYSTEM_EVENT_USER_REQUIRED_FILE, "USER GET FILE TO API : "+c.Request.URL.Path, isLogin.IdUser, ipRequest)
 
 		//not permit = ap1/v2/upload/images/ only
 		longitud := len(c.Request.URL.Path)
@@ -152,12 +160,7 @@ func checkFilesSegurity(c *gin.Context) bool {
 			c.Request.URL.Path = ""
 		}
 
-		if isLogin.Active {
-			c.Next()
-			return true
-		}
-
-		return false
+		return true
 
 	}
 

@@ -6,3 +6,4 @@ runtime/*
 !runtime/fonts
 *.pem
 node_modules
+uploads/
