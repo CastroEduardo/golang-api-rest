@@ -2,6 +2,7 @@ package rol_privilege_department_sys_controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -398,6 +399,8 @@ func ManagePrivilegeSys(c *gin.Context) {
 
 		modelNew := authinterfaces.UserPrivileges_sys{}
 		json.Unmarshal([]byte(paramRequest.ModelJson), &modelNew)
+
+		fmt.Println(modelNew.ListFunctions)
 
 		itemToUpdate := dbPrivilegeuser_service.FindToId(paramRequest.IdParam)
 

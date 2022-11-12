@@ -13,6 +13,7 @@ import (
 	"github.com/CastroEduardo/golang-api-rest/pkg/logging"
 	"github.com/CastroEduardo/golang-api-rest/pkg/mongo_db"
 	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
+	"github.com/CastroEduardo/golang-api-rest/pkg/setting/setting_create_user"
 	"github.com/CastroEduardo/golang-api-rest/pkg/util"
 	"github.com/CastroEduardo/golang-api-rest/routers"
 )
@@ -28,7 +29,7 @@ func init() {
 
 	time.Sleep(1 * time.Second)
 
-	//setting_create_user.Create_first_user()
+	setting_create_user.Create_first_user()
 	//result := logs_service.Add("ads")
 
 }
@@ -62,8 +63,12 @@ func main() {
 		// 	TLSNextProto:  make(map[string]func(*http.Server, *tls.Conn, http.Handler), 0),
 	}
 
-	server.ListenAndServeTLS("192.168.0.101+3.pem", "192.168.0.101+3-key.pem")
-	//server.ListenAndServe()
+	if setting.ServerSetting.UseSsl {
+		fmt.Println("***** RUN SSL SERVER *****")
+		server.ListenAndServeTLS(setting.ServerSetting.Certificate, setting.ServerSetting.CertificateKey)
+	} else {
+		server.ListenAndServe()
+	}
 
 	// srv := &http.Server{
 	// 	Addr:         "",

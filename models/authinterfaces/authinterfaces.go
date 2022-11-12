@@ -23,6 +23,8 @@ type ClaimSession struct {
 	RolUser_sys        RolUser_sys        `json:"rolUser_sys" bson:"rol_user_sys"`
 	DeptUser_sys       DptsUser_sys       `json:"deptUser_sys" bson:"dept_user_sys"`
 }
+
+// ! sd
 type Company_sys struct {
 	ID          string    `json:"id,omitempty" bson:"_id,omitempty"`
 	NameLong    string    `json:"nameLong" bson:"namelong"`
@@ -91,7 +93,7 @@ type RolUser_sys struct {
 	IdCompany   string    `json:"idCompany"  bson:"idcompany"`
 }
 
-//####DEPARTMENTS USER
+// ####DEPARTMENTS USER
 type DptsUser_sys struct {
 	ID        string         `json:"id,omitempty" bson:"_id,omitempty"`
 	Title     string         `json:"title" bson:"title"`
@@ -105,7 +107,7 @@ type DptsUser_sys struct {
 	Children  []DptsUser_sys `json:"children" bson:"children"`
 }
 
-//####Tree options PRIVILEGES
+// ####Tree options PRIVILEGES
 type TreePrivileges_sys struct {
 	ID        string               `json:"id,omitempty" bson:"_id,omitempty"`
 	Name      string               `json:"name" bson:"name"`
@@ -125,14 +127,14 @@ type TreePrivileges_sys struct {
 // 	// Children
 // }
 
-type DepartmentUserSysOld struct {
-	ID        string    `json:"id,omitempty" bson:"_id,omitempty"`
-	Name      string    `json:"name" bson:"name"`
-	Status    int       `json:"status" bson:"status"`
-	Note      string    `json:"note" bson:"note"`
-	Date      time.Time `json:"date" bson:"date"`
-	IdCompany string    `json:"idCompany"  bson:"idcompany"`
-}
+// type DepartmentUserSysOld struct {
+// 	ID        string    `json:"id,omitempty" bson:"_id,omitempty"`
+// 	Name      string    `json:"name" bson:"name"`
+// 	Status    int       `json:"status" bson:"status"`
+// 	Note      string    `json:"note" bson:"note"`
+// 	Date      time.Time `json:"date" bson:"date"`
+// 	IdCompany string    `json:"idCompany"  bson:"idcompany"`
+// }
 
 //########END DEPARTMENTS
 

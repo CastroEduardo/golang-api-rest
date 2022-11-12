@@ -197,6 +197,7 @@ func saveSessionUser(remember bool, user authinterfaces.User_sys) sendModel {
 		TokenExpire:    timeLoggout,
 		LastUpdateTime: time.Now(),
 	}
+
 	dbsession_user_service.Add(newSession)
 
 	dblogs_service.Add(conf.LOGIN_SUCCESS, "USER LOGIN SUCCESS.. "+user.NickName, "", ipRequest)
@@ -218,7 +219,9 @@ func saveSessionUser(remember bool, user authinterfaces.User_sys) sendModel {
 // @Summary Post ClaimUser
 // @Produce  json
 // @Tags Auth
-//  //    @ID Authentication
+//
+//	//    @ID Authentication
+//
 // @Security bearerAuth
 // @Success 200 {object} app.Response
 // @Failure 500 {object} app.Response
@@ -268,7 +271,9 @@ func PostClaimUser(c *gin.Context) {
 // @Summary Post ClaimUser
 // @Produce  json
 // @Tags Auth
-//  //    @ID Authentication
+//
+//	//    @ID Authentication
+//
 // @Security bearerAuth
 // @Success 200 {object} app.Response
 // @Failure 500 {object} app.Response
@@ -366,7 +371,9 @@ func PostCheckStatusSession(c *gin.Context) {
 // @Tags Auth
 // @Param username query string true "username"
 // @Param password query string true "password"
-//  //    @ID Authentication
+//
+//	//    @ID Authentication
+//
 // @Security bearerAuth
 // @Success 200 {object} app.Response
 // @Failure 500 {object} app.Response

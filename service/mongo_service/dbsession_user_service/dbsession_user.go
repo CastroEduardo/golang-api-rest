@@ -2,6 +2,7 @@ package dbsession_user_service
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os" // get an object type
 
@@ -26,7 +27,7 @@ import (
 var ClientMongo *mongo.Client
 var nameCollection = "session_users_sys"
 
-//var client *mongo.Client
+// var client *mongo.Client
 var collection *mongo.Collection
 
 func settingsCollections() {
@@ -191,8 +192,9 @@ func GetClaimForToken(token string) authinterfaces.ClaimSession {
 
 	dataDeptUser_sys := authinterfaces.DptsUser_sys{}
 	// SendModel.DeptUser_sys = dataDeptUser_sys
-
 	idParent, idChild := dbdepartmentuser_service.SearchParentIdCompany(dataUser.IdCompany, dataUser.IdDept)
+
+	fmt.Println(dataDeptUser_sys)
 
 	if idChild != "" {
 		//is Children
