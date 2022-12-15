@@ -77,7 +77,7 @@ func GetArticle(c *gin.Context) {
 	// 	return
 	// }
 
-	appG.Response(http.StatusOK, e.SUCCESS, "")
+	appG.Response(http.StatusOK, e.SUCCESS, "{}")
 	return
 }
 

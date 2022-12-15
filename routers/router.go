@@ -18,6 +18,7 @@ import (
 	"github.com/CastroEduardo/golang-api-rest/pkg/upload"
 	v1 "github.com/CastroEduardo/golang-api-rest/routers/api/v1"
 	v2 "github.com/CastroEduardo/golang-api-rest/routers/api/v2"
+	option_sys_controller "github.com/CastroEduardo/golang-api-rest/routers/api/v2/options_sys_controller"
 	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/rol_privilege_department_sys_controller"
 	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/uploadsfiles"
 	"github.com/CastroEduardo/golang-api-rest/routers/api/v2/users_sys_controllers"
@@ -43,6 +44,7 @@ func InitRouter() *gin.Engine {
 	r.POST("/auth/logout", api.Postlogout)
 	r.POST("/auth/checkpassword", api.PostCheckPasswordUser)
 	r.POST("/auth/checkstatustoken", api.PostCheckStatusSession)
+	r.POST("/auth/checkIdDevice", api.PostCheckIdDevice)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// r.POST("/upload", api.UploadImage)
@@ -71,6 +73,8 @@ func InitRouter() *gin.Engine {
 		apiv2.POST(conf.ControllerRolUserSys, rol_privilege_department_sys_controller.ManageRolSys)
 		apiv2.POST(conf.ControllerPrivilegeUserSys, rol_privilege_department_sys_controller.ManagePrivilegeSys)
 
+		//Options List
+		apiv2.POST(conf.ManagedGenericOptions_Post, option_sys_controller.ManagedGeneryOptions)
 		//upload files
 		//apiv2.POST(conf.ControllerUploadFiles, uploadsfiles.ManagedUploads)
 

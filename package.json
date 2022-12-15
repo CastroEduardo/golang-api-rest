@@ -5,7 +5,9 @@
     "dev": "nodemon --exec go run main.go --signal SIGTERM",
     "prepare": "husky install"
   },
-  "dependencies": {},
+  "dependencies": {
+    "run": "^1.4.0"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
     "@commitlint/config-conventional": "^17.2.0",

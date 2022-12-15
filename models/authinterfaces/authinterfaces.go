@@ -107,6 +107,18 @@ type DptsUser_sys struct {
 	Children  []DptsUser_sys `json:"children" bson:"children"`
 }
 
+// ####Devices Sys
+type DevicesSys_sys struct {
+	ID        string    `json:"id,omitempty" bson:"_id,omitempty"`
+	Key       string    `json:"key" bson:"key"`
+	OrderNo   int       `json:"orderNo" bson:"orderno"`
+	Status    int       `json:"status" bson:"status"`
+	Note      string    `json:"note" bson:"note"`
+	Type      string    `json:"type" bson:"type"`
+	IdCompany string    `json:"idCompany"  bson:"idcompany"`
+	DateAdd   time.Time `json:"dateAdd" bson:"dateadd"`
+}
+
 // ####Tree options PRIVILEGES
 type TreePrivileges_sys struct {
 	ID        string               `json:"id,omitempty" bson:"_id,omitempty"`

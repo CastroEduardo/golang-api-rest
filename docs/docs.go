@@ -60,45 +60,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v2/addusersys": {
-            "post": {
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Api-v2"
-                ],
-                "summary": "Add user to System",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "modelUser",
-                        "name": "modelUser",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/app.Response"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/app.Response"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v2/articles/{id}": {
             "get": {
                 "security": [
@@ -138,7 +99,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v2/manageDepartament": {
+        "/api/v2/manageDepartment": {
             "post": {
                 "security": [
                     {
@@ -151,7 +112,230 @@ const docTemplate = `{
                 "tags": [
                     "Api-v2"
                 ],
-                "summary": "Manage Departament Sys",
+                "summary": "Manage DepartamentUser Sys",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "typeOperation",
+                        "name": "typeOperation",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "idParam",
+                        "name": "idParam",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "modelJson",
+                        "name": "modelJson",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/managedGenericOptions": {
+            "post": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Api-v2"
+                ],
+                "summary": "ManagedGenericOptions Sys",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "modelOptions",
+                        "name": "modelOptions",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/managedUserSys": {
+            "post": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Api-v2"
+                ],
+                "summary": "Add user to System",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "modelUser",
+                        "name": "modelUser",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/manageduploadfiles": {
+            "post": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Api-v2"
+                ],
+                "summary": "Upload Files to Server",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "modelUser",
+                        "name": "modelUser",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/manageprivilegesys": {
+            "post": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Api-v2"
+                ],
+                "summary": "Manage Privilege Sys",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "typeOperation",
+                        "name": "typeOperation",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "idParam",
+                        "name": "idParam",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "modelJson",
+                        "name": "modelJson",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/managerolsys": {
+            "post": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Api-v2"
+                ],
+                "summary": "Manage RolesUser Sys",
                 "parameters": [
                     {
                         "type": "string",
@@ -319,6 +503,47 @@ const docTemplate = `{
                     },
                     "500": {
                         "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/checkIdDevice": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Post CheckIdDevice",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "idDevice",
+                        "name": "idDevice",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "type",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/app.Response"
                         }

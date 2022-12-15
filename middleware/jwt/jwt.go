@@ -24,6 +24,7 @@ func JWT() gin.HandlerFunc {
 			c.Next()
 			return
 		}
+
 		auth := c.Request.Header.Get("Authorization")
 		if auth == "" {
 			c.String(http.StatusForbidden, "No Authorization header provided")
@@ -98,6 +99,8 @@ func checkTokenDbSession(token string) bool {
 }
 
 func checkFilesSegurity(c *gin.Context) bool {
+
+	ipRequest := c.ClientIP()
 	//c.Request.URL.Path = "http://sgoogle.com"
 	// oldpath := c.Request.URL.Path
 	// result := strings.Replace(oldpath, "folder1", "766612", -1)
@@ -114,6 +117,7 @@ func checkFilesSegurity(c *gin.Context) bool {
 	//fmt.Println("----> " + c.Request.URL.Path)
 	//Proted files in folder images####
 	token_key := c.Query("token") //com.StrTo(c.Param("id")
+
 	if token_key != "" {
 
 		//check expire token
@@ -121,19 +125,22 @@ func checkFilesSegurity(c *gin.Context) bool {
 		if err != nil {
 			switch err.(*jwt.ValidationError).Errors {
 			case jwt.ValidationErrorExpired:
+				fmt.Println("e.ERROR_AUTH_CHECK_TOKEN_TIMEOUT " + token_key)
 				return false
 				//code = e.ERROR_AUTH_CHECK_TOKEN_TIMEOUT
 			default:
 				//code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
+				fmt.Println("e.ERROR_AUTH_CHECK_TOKEN_FAIL " + token_key)
 				return false
 			}
 		}
 
 		isLogin := dbsession_user_service.FindToToken(token_key)
-		fmt.Println("IDCOMPANY : "+isLogin.IdCompany)
+		fmt.Println("IDCOMPANY : " + isLogin.IdCompany)
 
 		if !isLogin.Active {
-			c.Next()
+			go dblogs_service.Add(conf.SYSTEM_EVENT_USER_REQUIRED_FILE, "USER GET FAILED TOKEN FAILED : "+c.Request.URL.Path, isLogin.IdUser, ipRequest)
+			c.Request.URL.Path = ""
 			return false
 		}
 
@@ -141,18 +148,14 @@ func checkFilesSegurity(c *gin.Context) bool {
 		//getIdFolder := dbcompany_service.FindToId(isLogin.IdCompany)
 		//folderCompany := getIdFolder.FolderFiles
 
-		ipRequest := c.ClientIP()
 		go dblogs_service.Add(conf.SYSTEM_EVENT_USER_REQUIRED_FILE, "USER GET FILE TO API : "+c.Request.URL.Path, isLogin.IdUser, ipRequest)
-		
+
 		//not permit = ap1/v2/upload/images/ only
 		longitud := len(c.Request.URL.Path)
 		//fmt.Println(longitud)
 		if longitud < 24 {
 			c.Request.URL.Path = ""
 		}
-
-	
-		
 
 		// lengFolder := len(folderCompany)
 		// minLeght := lengFolder + 22 + 5

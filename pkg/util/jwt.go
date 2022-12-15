@@ -1,8 +1,10 @@
 package util
 
 import (
+	"strings"
 	"time"
 
+	"github.com/CastroEduardo/golang-api-rest/conf"
 	"github.com/CastroEduardo/golang-api-rest/pkg/setting"
 	"github.com/dgrijalva/jwt-go"
 )
@@ -16,11 +18,22 @@ type Claims struct {
 }
 
 // GenerateToken generate tokens used for auth
-func GenerateToken(username, password string, remember bool) (string, error) {
+func GenerateToken(username, password string, remember bool, fromLogin string) (string, error) {
 	nowTime := time.Now()
 	expireTime := nowTime.Add(time.Minute * time.Duration(setting.AppSetting.TimeNotPersistToken))
 	if remember {
-		expireTime = nowTime.Add(time.Hour * time.Duration(setting.AppSetting.TimePersistToken))
+
+		typeDevice := strings.Split(fromLogin, " ")
+
+		switch strings.TrimSpace(typeDevice[0]) {
+		case conf.NamesDevicesPhonePersistent:
+			//is Phone
+			expireTime = nowTime.Add(time.Hour * time.Duration(setting.AppSetting.TimePersistToken*2000))
+		default:
+			expireTime = nowTime.Add(time.Hour * time.Duration(setting.AppSetting.TimePersistToken))
+
+		}
+
 	}
 
 	claims := Claims{

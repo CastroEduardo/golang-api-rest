@@ -1,6 +1,10 @@
 package conf
 
 const (
+
+	//Name persistent Devices
+	NamesDevicesPhonePersistent = "Phone"
+
 	NameUrlApi1 = "/api/v1"
 	NameUrlApi2 = "/api/v2"
 
@@ -20,6 +24,9 @@ const (
 	ManagedUserSys   = "/managedUserSys"
 	UserSysList_Post = "/userlistsys"
 
+	//ListOptions
+	ManagedGenericOptions_Post = "/managedGenericOptions"
+
 	//rol_privileges_departament
 	ControllerDepartamentUserSys = "/managedepartment"
 	ControllerRolUserSys         = "/managerolsys"
@@ -27,6 +34,9 @@ const (
 
 	//managed uploadFiles
 	ControllerUploadFiles = "/manageduploadfiles"
+
+	//list generic
+	GENERIC_FARM = "0078821"
 
 	//types EVENTS LOGS
 	LOGIN_FAILE                     = 111
@@ -44,4 +54,5 @@ const (
 	USER_EVENT_UPDATE_AVATAR        = 1113
 	SYSTEM_EVENT_MOVE_FILE          = 1114
 	SYSTEM_EVENT_USER_REQUIRED_FILE = 1115
+	SYSTEM_DEVICE_EVENT             = 1116
 )

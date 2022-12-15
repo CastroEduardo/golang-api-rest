@@ -1,0 +1,8 @@
+db.createUser(
+   {
+     user: "test1Admin",
+     pwd: "231154Test1" ,//passwordPrompt(),   // Or  "<cleartext password>"
+     roles: [ { role: "readWrite", db: "test1" } ],
+     mechanisms: [ "SCRAM-SHA-256" ]
+   }
+);
